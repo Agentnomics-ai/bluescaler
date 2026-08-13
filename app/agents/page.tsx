@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DemoCTA } from "@/components/DemoCTA";
 import {
   BarChart3,
   Bot,
@@ -23,7 +24,6 @@ import {
   AGENTS_PAGE_VIDEOS,
   ANALYTICAL_AGENTS,
   CONVERSATIONAL_AGENT_CARDS,
-  DEMO_BOOKING_URL,
   RESULTS_STATS,
   SIGNUP_URLS,
 } from "@/components/site-content";
@@ -138,9 +138,7 @@ export default function AgentsPage() {
                 <a href={SIGNUP_URLS.conversational} className="btn-primary">
                   Sign Up →
                 </a>
-                <a href={DEMO_BOOKING_URL} className="btn-ghost">
-                  Book a Demo
-                </a>
+                <DemoCTA className="btn-ghost">Book a Demo</DemoCTA>
               </div>
 
               <div className="hero-in hero-in-d4 mt-10 flex flex-wrap gap-3">
@@ -522,7 +520,7 @@ export default function AgentsPage() {
           </div>
 
           <div className="scroll-reveal mt-12 text-center">
-            <a href={DEMO_BOOKING_URL} className="btn-primary">Book a Demo →</a>
+            <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
           </div>
         </div>
       </section>
@@ -550,7 +548,7 @@ export default function AgentsPage() {
               <span className="text-gold">in action?</span>
             </h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a href={DEMO_BOOKING_URL} className="btn-primary">Book a Demo →</a>
+              <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
               <a href={SIGNUP_URLS.conversational} className="btn-ghost">Start Free</a>
             </div>
           </div>

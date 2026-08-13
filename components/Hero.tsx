@@ -1,5 +1,5 @@
 import { BarChart3, MessageCircle, ShoppingBag } from "lucide-react";
-import { DEMO_BOOKING_URL } from "./site-content";
+import { DemoCTA } from "./DemoCTA";
 
 type FeedIcon = typeof MessageCircle;
 
@@ -61,9 +61,7 @@ export function Hero() {
             </p>
 
             <div className="hero-in hero-in-d3 mt-10 flex flex-wrap gap-4">
-              <a href={DEMO_BOOKING_URL} className="btn-primary">
-                Book a Demo →
-              </a>
+              <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
               <a href="#conversational-agents" className="btn-ghost">
                 See it in action
               </a>

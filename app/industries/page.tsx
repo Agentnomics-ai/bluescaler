@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DemoCTA } from "@/components/DemoCTA";
 import {
   Clock,
   Globe,
@@ -14,7 +15,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { IndustryTabs } from "@/components/IndustryTabs";
-import { DEMO_BOOKING_URL, INDUSTRY_IMPACT } from "@/components/site-content";
+import { INDUSTRY_IMPACT } from "@/components/site-content";
 
 export const metadata: Metadata = {
   title: "Industries | BlueScaler",
@@ -81,7 +82,7 @@ export default function IndustriesPage() {
               </p>
               <div className="hero-in hero-in-d3 mt-8 flex flex-wrap gap-4">
                 <Link href="/agents" className="btn-primary">See the Agents →</Link>
-                <a href={DEMO_BOOKING_URL} className="btn-ghost">Book a Demo</a>
+                <DemoCTA className="btn-ghost">Book a Demo</DemoCTA>
               </div>
             </div>
 
@@ -168,9 +169,7 @@ export default function IndustriesPage() {
                             </li>
                           ))}
                         </ul>
-                        <a href={DEMO_BOOKING_URL} className="btn-primary-sm mt-6 self-start">
-                          Book a Demo →
-                        </a>
+                        <DemoCTA className="btn-primary-sm mt-6 self-start">Book a Demo →</DemoCTA>
                       </div>
 
                       {/* Right: booking mockup */}
@@ -315,7 +314,7 @@ export default function IndustriesPage() {
               Live in 5 business days. No credit card required to start.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a href={DEMO_BOOKING_URL} className="btn-primary">Book a Demo →</a>
+              <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
               <Link href="/agents" className="btn-ghost">See the Agents</Link>
             </div>
           </div>

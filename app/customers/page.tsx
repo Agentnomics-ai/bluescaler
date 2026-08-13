@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import { DemoCTA } from "@/components/DemoCTA";
 import { ShoppingBag, UtensilsCrossed, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
   CUSTOMER_CASE_STUDIES,
-  DEMO_BOOKING_URL,
   RESULTS_STATS,
   SIGNUP_URLS,
 } from "@/components/site-content";
@@ -87,7 +87,7 @@ export default function CustomersPage() {
               </p>
               <div className="hero-in hero-in-d3 mt-8 flex flex-wrap gap-4">
                 <a href={SIGNUP_URLS.conversational} className="btn-primary">Join Them →</a>
-                <a href={DEMO_BOOKING_URL} className="btn-ghost">Book a Demo</a>
+                <DemoCTA className="btn-ghost">Book a Demo</DemoCTA>
               </div>
             </div>
 
@@ -402,7 +402,7 @@ export default function CustomersPage() {
               Live in 5 business days. No credit card required.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a href={DEMO_BOOKING_URL} className="btn-primary">Book a Demo →</a>
+              <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
               <a href={SIGNUP_URLS.conversational} className="btn-ghost">Start Free</a>
             </div>
           </div>

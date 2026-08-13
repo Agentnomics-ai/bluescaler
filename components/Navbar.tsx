@@ -4,7 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { DEMO_BOOKING_URL, NAV_LINKS, SIGNUP_URLS } from "./site-content";
+import { DemoCTA } from "./DemoCTA";
+import { NAV_LINKS, SIGNUP_URLS } from "./site-content";
 
 const LOGO_SRC = "/agentnomics_logo.png";
 
@@ -48,12 +49,9 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <a
-            href={DEMO_BOOKING_URL}
-            className="text-sm font-medium text-[#9AABC3] transition-colors hover:text-[#F7F4EF]"
-          >
+          <DemoCTA className="text-sm font-medium text-[#9AABC3] transition-colors hover:text-[#F7F4EF]">
             Book a Demo
-          </a>
+          </DemoCTA>
         </div>
 
         {/* Right: CTA + hamburger */}
@@ -93,13 +91,11 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={DEMO_BOOKING_URL}
-              onClick={close}
-              className="rounded-lg px-3 py-3 text-base font-medium text-[#9AABC3] transition-colors hover:bg-white/4 hover:text-[#F7F4EF]"
-            >
+            {/* Drawer stays open behind the modal — closing it here would
+                unmount the modal along with this button. */}
+            <DemoCTA className="rounded-lg px-3 py-3 text-base font-medium text-[#9AABC3] transition-colors hover:bg-white/4 hover:text-[#F7F4EF]">
               Book a Demo
-            </a>
+            </DemoCTA>
           </div>
           <div className="mt-3 border-t border-white/6 pt-4">
             <a

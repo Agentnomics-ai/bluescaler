@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { DemoCTA } from "./DemoCTA";
 import {
   CONTACT_EMAIL_URL,
   DEMO_BOOKING_URL,
@@ -70,9 +71,7 @@ export function Footer() {
             <a href={SIGNUP_URLS.conversational} className="btn-primary">
               Get Started →
             </a>
-            <a href={DEMO_BOOKING_URL} className="btn-ghost">
-              Book a Demo
-            </a>
+            <DemoCTA className="btn-ghost">Book a Demo</DemoCTA>
           </div>
         </div>
       </div>
@@ -134,7 +133,11 @@ export function Footer() {
                 <ul className="space-y-3.5">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      {link.href.startsWith("/") ? (
+                      {link.href === DEMO_BOOKING_URL ? (
+                        <DemoCTA className="text-sm font-medium text-[#6B7E9A] transition-colors hover:text-[#C8A96E]">
+                          {link.label}
+                        </DemoCTA>
+                      ) : link.href.startsWith("/") ? (
                         <Link
                           href={link.href}
                           className="text-sm font-medium text-[#6B7E9A] transition-colors hover:text-[#C8A96E]"

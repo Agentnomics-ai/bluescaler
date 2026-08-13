@@ -110,6 +110,36 @@ BlueScaler is a marketing and lead-generation site for an AI agent platform purp
 
                         ---
 
+## Lead Notifications
+
+Demo requests and contact-form messages are emailed to
+**javed@agentnomics.ai** by `POST /api/lead` ([app/api/lead/route.ts](app/api/lead/route.ts)).
+
+- **Book a Demo** opens a short capture form, emails the lead, then forwards
+  the visitor to the Google Calendar booking page. The lead is captured even
+  if they never finish booking, and a delivery failure never blocks the
+  booking — the visitor can still continue to the calendar.
+- **Or send us a message** posts to the same endpoint.
+
+### Configuration
+
+Set these as Environment Variables in Vercel (and in `.env.local` locally).
+See [.env.example](.env.example).
+
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `RESEND_API_KEY` | one of the two | Send via [Resend](https://resend.com) (tried first) |
+| `SENDGRID_API_KEY` | one of the two | Send via [SendGrid](https://sendgrid.com) |
+| `LEAD_NOTIFICATION_EMAIL` | no | Recipient. Defaults to `javed@agentnomics.ai` |
+| `LEAD_EMAIL_FROM` | no | Sender. Defaults to `BlueScaler <noreply@bluescaler.com>` |
+
+The sending domain must be verified with the provider, or delivery fails.
+
+With no key set, the endpoint returns a friendly error, points the visitor at
+`sales@agentnomics.ai`, and writes the full lead to the Vercel logs (prefixed
+`[lead]`) so nothing is lost.
+
+
                         ## Powered By
 
                         [Agentnomics](https://agentnomics.ai) — the complete platform for building and deploying AI agents for your business.

@@ -1,4 +1,6 @@
-import { DEMO_BOOKING_URL, SIGNUP_URLS, WHATSAPP_URL } from "./site-content";
+import { ContactForm } from "./ContactForm";
+import { DemoCTA } from "./DemoCTA";
+import { SIGNUP_URLS, WHATSAPP_URL } from "./site-content";
 
 export function CTASection() {
   return (
@@ -26,9 +28,7 @@ export function CTASection() {
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href={DEMO_BOOKING_URL} className="btn-primary">
-              Book a Demo →
-            </a>
+            <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
             <a href={WHATSAPP_URL} className="btn-ghost">
               WhatsApp Us
             </a>
@@ -74,49 +74,7 @@ export function CTASection() {
           <h3 className="text-xl font-black text-[#F7F4EF]">
             Or send us a message
           </h3>
-          <form
-            action="mailto:sales@agentnomics.ai"
-            method="post"
-            encType="text/plain"
-            className="mt-6 grid gap-4"
-          >
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
-                Name
-                <input
-                  name="name"
-                  type="text"
-                  required
-                  className="form-input"
-                  placeholder="Your name"
-                />
-              </label>
-              <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
-                Work email
-                <input
-                  name="email"
-                  type="email"
-                  required
-                  className="form-input"
-                  placeholder="you@company.com"
-                />
-              </label>
-            </div>
-            <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
-              Message
-              <textarea
-                name="message"
-                rows={3}
-                className="form-input resize-none"
-                placeholder="Tell us what you want to automate"
-              />
-            </label>
-            <div>
-              <button type="submit" className="btn-primary">
-                Send Message →
-              </button>
-            </div>
-          </form>
+          <ContactForm />
         </div>
       </div>
     </section>
