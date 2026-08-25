@@ -111,7 +111,15 @@ export default function AgentsPage() {
           muted
           loop
           playsInline
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30"
+          className="pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover opacity-20 blur-[3px]"
+          aria-hidden
+        />
+
+        {/* Scrim — the hero video has its own typography in it; darken and
+            defocus it so it reads as ambient motion, not competing copy */}
+        <div className="pointer-events-none absolute inset-0 bg-[#060C18]/75" aria-hidden />
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#060C18] via-[#060C18]/80 to-[#060C18]/40"
           aria-hidden
         />
 
