@@ -45,9 +45,10 @@ export const CONVERSATIONAL_VIDEOS: SiteVideo[] = [
   },
 ];
 
-export const ANALYTICAL_VIDEO = {
+export const ANALYTICAL_VIDEO: SiteVideo = {
   title: "Demand planning, answered in plain English",
   videoSrc: "/videos/demand-planning-demo.mp4",
+  poster: "/videos/demand-planning-poster.jpg",
 };
 
 export const AGENTS_PAGE_VIDEOS: SiteVideo[] = [

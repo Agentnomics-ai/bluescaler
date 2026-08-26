@@ -42,6 +42,7 @@ export function AnalyticalAgents() {
             <div className="aspect-video">
               <video
                 src={ANALYTICAL_VIDEO.videoSrc}
+                poster={ANALYTICAL_VIDEO.poster}
                 controls
                 preload="metadata"
                 className="h-full w-full"
