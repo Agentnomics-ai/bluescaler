@@ -1,3 +1,5 @@
+import { DEFAULT_LOCALE, isLocale } from "@/components/i18n";
+import { tr } from "@/components/content/strings";
 import type { Metadata } from "next";
 import { DemoCTA } from "@/components/DemoCTA";
 import { ShoppingBag, UtensilsCrossed, Wrench } from "lucide-react";
@@ -60,7 +62,14 @@ const TESTIMONIALS = [
 
 /* ── page ──────────────────────────────────────────────────────── */
 
-export default function CustomersPage() {
+export default async function CustomersPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: raw } = await params;
+  const locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
+
   return (
     <main>
       {/* ── HERO ───────────────────────────────────────────────── */}
@@ -71,33 +80,32 @@ export default function CustomersPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="hero-in mb-8">
-            <span className="brand-pill">Customers</span>
+            <span className="brand-pill">{tr(locale, "Customers")}</span>
           </div>
 
           <div className="grid items-center gap-16 lg:grid-cols-[1fr_0.9fr]">
             <div>
               <h1 className="hero-in hero-in-d1 text-5xl font-black leading-tight text-[#F7F4EF] sm:text-6xl lg:text-7xl">
-                Proof for buyers<br />
-                who need to see it{" "}
-                <span className="text-gold-shimmer">working.</span>
+                {tr(locale, "Proof for buyers")}<br />
+                {tr(locale, "who need to see it")}{" "}
+                <span className="text-gold-shimmer">{tr(locale, "working.")}</span>
               </h1>
               <p className="hero-in hero-in-d2 mt-6 max-w-xl text-xl leading-8 text-[#C8D2E2]">
-                Real GCC businesses using BlueScaler agents to save time,
-                reduce costs, and serve customers better.
+                {tr(locale, "Real GCC businesses using BlueScaler agents to save time, reduce costs, and serve customers better.")}
               </p>
               <div className="hero-in hero-in-d3 mt-8 flex flex-wrap gap-4">
-                <a href={SIGNUP_URLS.conversational} className="btn-primary">Join Them →</a>
-                <DemoCTA className="btn-ghost">Book a Demo</DemoCTA>
+                <a href={SIGNUP_URLS.conversational} className="btn-primary">{tr(locale, "Join Them →")}</a>
+                <DemoCTA locale={locale} className="btn-ghost">{tr(locale, "Book a Demo")}</DemoCTA>
               </div>
             </div>
 
             {/* Verified outcomes card */}
             <div className="hero-card-in glass-card gradient-border-gold rounded-2xl p-5">
               <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#6B7E9A]">
-                Verified outcomes
+                {tr(locale, "Verified outcomes")}
               </p>
               <p className="mb-5 text-sm font-black text-[#F7F4EF]">
-                GCC businesses, measured results
+                {tr(locale, "GCC businesses, measured results")}
               </p>
               <div className="space-y-3">
                 {HERO_WINS.map(({ metric, label, detail }) => (
@@ -106,11 +114,11 @@ export default function CustomersPage() {
                     className="flex items-center gap-4 rounded-xl border border-white/6 bg-white/3 p-4"
                   >
                     <p className="w-16 shrink-0 text-right text-2xl font-black text-[#C8A96E]">
-                      {metric}
+                      {tr(locale, metric)}
                     </p>
                     <div className="min-w-0">
-                      <p className="text-sm font-bold text-[#F7F4EF]">{label}</p>
-                      <p className="text-xs text-[#9AABC3]">{detail}</p>
+                      <p className="text-sm font-bold text-[#F7F4EF]">{tr(locale, label)}</p>
+                      <p className="text-xs text-[#9AABC3]">{tr(locale, detail)}</p>
                     </div>
                   </div>
                 ))}
@@ -129,9 +137,9 @@ export default function CustomersPage() {
                 key={label}
                 className={`scroll-reveal flex flex-col items-center justify-center bg-white/[0.025] px-6 py-8 text-center ${i % 2 === 1 ? "scroll-reveal-d1" : ""}`}
               >
-                <p className="text-5xl font-black text-[#C8A96E] sm:text-6xl">{stat}</p>
+                <p className="text-5xl font-black text-[#C8A96E] sm:text-6xl">{tr(locale, stat)}</p>
                 <p className="mt-2 max-w-[16ch] text-sm font-semibold leading-5 text-[#9AABC3]">
-                  {label}
+                  {tr(locale, label)}
                 </p>
               </div>
             ))}
@@ -143,7 +151,7 @@ export default function CustomersPage() {
       <section className="relative overflow-hidden bg-[#060C18] px-5 py-10 sm:px-8">
         <div className="relative mx-auto max-w-7xl">
           <p className="scroll-reveal text-center text-xs font-bold uppercase tracking-[0.2em] text-[#4A5568]">
-            Trusted by businesses across the GCC
+            {tr(locale, "Trusted by businesses across the GCC")}
           </p>
         </div>
       </section>
@@ -154,10 +162,10 @@ export default function CustomersPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal max-w-3xl">
-            <span className="brand-pill mb-6 inline-flex">Case Studies</span>
+            <span className="brand-pill mb-6 inline-flex">{tr(locale, "Case Studies")}</span>
             <h2 className="text-4xl font-black text-[#F7F4EF] sm:text-5xl">
-              Real outcomes, real{" "}
-              <span className="text-gold">GCC businesses.</span>
+              {tr(locale, "Real outcomes, real")}{" "}
+              <span className="text-gold">{tr(locale, "GCC businesses.")}</span>
             </h2>
           </div>
 
@@ -177,7 +185,7 @@ export default function CustomersPage() {
               if (i === 0) {
                 return (
                   <article
-                    key={study.company}
+                    key={tr(locale, study.company)}
                     className="scroll-reveal glass-card card-lift group relative overflow-hidden rounded-2xl md:col-span-2 lg:col-span-2"
                   >
                     <div className={`absolute inset-x-0 top-0 h-0.5 bg-linear-to-r ${accentLine} to-transparent`} />
@@ -192,34 +200,34 @@ export default function CustomersPage() {
                             </span>
                             <div>
                               <p className={`text-[11px] font-bold uppercase tracking-[0.14em] ${iconClass}`}>
-                                {study.industry}
+                                {tr(locale, study.industry)}
                               </p>
-                              <p className="text-xs text-[#6B7E9A]">{study.country}</p>
+                              <p className="text-xs text-[#6B7E9A]">{tr(locale, study.country)}</p>
                             </div>
                           </div>
                           <h3 className="mt-5 text-xl font-black capitalize text-[#F7F4EF]">
-                            {study.company}
+                            {tr(locale, study.company)}
                           </h3>
                           <p className="mt-3 text-sm leading-6 text-[#9AABC3]">
-                            <span className="font-bold text-[#6B7E9A]">Challenge: </span>
-                            {study.challenge}
+                            <span className="font-bold text-[#6B7E9A]">{tr(locale, "Challenge: ")}</span>
+                            {tr(locale, study.challenge)}
                           </p>
                           <p className={`mt-4 border-l-2 ${borderAcc} pl-4 text-sm font-bold leading-6 text-[#F7F4EF]`}>
-                            {study.result}
+                            {tr(locale, study.result)}
                           </p>
                         </div>
                         <span className="teal-pill mt-6 self-start">
-                          Agent: {study.agent}
+                          {tr(locale, "Agent")}: {tr(locale, study.agent)}
                         </span>
                       </div>
 
                       {/* Right: big metric */}
                       <div className={`flex flex-col items-center justify-center rounded-2xl border ${metricBg} p-6 text-center`}>
                         <p className={`text-7xl font-black sm:text-8xl ${metricCol}`}>
-                          {meta?.big}
+                          {meta?.big ? tr(locale, meta.big) : null}
                         </p>
-                        <p className="mt-2 text-lg font-bold text-[#F7F4EF]">{meta?.label}</p>
-                        <p className="mt-1 text-sm text-[#9AABC3]">{meta?.sub}</p>
+                        <p className="mt-2 text-lg font-bold text-[#F7F4EF]">{meta?.label ? tr(locale, meta.label) : null}</p>
+                        <p className="mt-1 text-sm text-[#9AABC3]">{meta?.sub ? tr(locale, meta.sub) : null}</p>
                       </div>
                     </div>
                   </article>
@@ -230,7 +238,7 @@ export default function CustomersPage() {
               if (i === 2) {
                 return (
                   <article
-                    key={study.company}
+                    key={tr(locale, study.company)}
                     className="scroll-reveal glass-card card-lift group relative overflow-hidden rounded-2xl md:col-span-2 lg:col-span-3"
                   >
                     <div className={`absolute inset-x-0 top-0 h-0.5 bg-linear-to-r ${accentLine} to-transparent`} />
@@ -244,34 +252,34 @@ export default function CustomersPage() {
                           </span>
                           <div>
                             <p className={`text-[11px] font-bold uppercase tracking-[0.14em] ${iconClass}`}>
-                              {study.industry}
+                              {tr(locale, study.industry)}
                             </p>
-                            <p className="text-xs text-[#6B7E9A]">{study.country}</p>
+                            <p className="text-xs text-[#6B7E9A]">{tr(locale, study.country)}</p>
                           </div>
                         </div>
                         <div className="mt-5 flex items-baseline gap-4">
-                          <p className={`text-6xl font-black ${metricCol}`}>{meta?.big}</p>
+                          <p className={`text-6xl font-black ${metricCol}`}>{meta?.big ? tr(locale, meta.big) : null}</p>
                           <div>
-                            <p className="text-xl font-bold text-[#F7F4EF]">{meta?.label}</p>
-                            <p className="text-sm text-[#9AABC3]">{meta?.sub}</p>
+                            <p className="text-xl font-bold text-[#F7F4EF]">{meta?.label ? tr(locale, meta.label) : null}</p>
+                            <p className="text-sm text-[#9AABC3]">{meta?.sub ? tr(locale, meta.sub) : null}</p>
                           </div>
                         </div>
                         <p className="mt-5 text-sm leading-6 text-[#9AABC3]">
-                          <span className="font-bold text-[#6B7E9A]">Challenge: </span>
-                          {study.challenge}
+                          <span className="font-bold text-[#6B7E9A]">{tr(locale, "Challenge: ")}</span>
+                          {tr(locale, study.challenge)}
                         </p>
                         <p className={`mt-3 border-l-2 ${borderAcc} pl-3 text-sm font-bold leading-6 text-[#F7F4EF]`}>
-                          {study.result}
+                          {tr(locale, study.result)}
                         </p>
                         <span className="teal-pill mt-5 self-start">
-                          Agent: {study.agent}
+                          {tr(locale, "Agent")}: {tr(locale, study.agent)}
                         </span>
                       </div>
 
                       {/* Right: appointment schedule */}
                       <div className="rounded-xl border border-white/6 bg-black/20 p-4">
                         <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.14em] text-[#6B7E9A]">
-                          Today's schedule · Riyadh
+                          {tr(locale, "Today's schedule · Riyadh")}
                         </p>
                         <div className="space-y-2">
                           {SERVICE_SLOTS.map(({ time, service, via }) => (
@@ -280,15 +288,19 @@ export default function CustomersPage() {
                               className="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 px-3 py-2.5"
                             >
                               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#C8A96E]" />
-                              <p className="flex-1 text-sm font-bold text-[#F7F4EF]">{service}</p>
-                              <p className="font-mono text-xs text-[#9AABC3]">{time}</p>
-                              <p className="text-xs text-[#7CE2EF]">{via}</p>
+                              <p className="flex-1 text-sm font-bold text-[#F7F4EF]">{tr(locale, service)}</p>
+                              <p className="font-mono text-xs text-[#9AABC3]">{tr(locale, time)}</p>
+                              <p className="text-xs text-[#7CE2EF]">{tr(locale, via)}</p>
                             </div>
                           ))}
                         </div>
                         <div className="mt-3 flex items-center justify-between border-t border-white/6 pt-2.5">
-                          <p className="text-xs text-[#6B7E9A]">All booked via Mechanic Bot</p>
-                          <p className="text-xs font-bold text-[#C8A96E]">3× vs. last quarter</p>
+                          <p className="text-xs text-[#6B7E9A]">
+                            {tr(locale, "All booked via Mechanic Bot")}
+                          </p>
+                          <p className="text-xs font-bold text-[#C8A96E]">
+                            {tr(locale, "3× vs. last quarter")}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -299,7 +311,7 @@ export default function CustomersPage() {
               /* ── Regular: UAE retail (col-span-1) ────────────── */
               return (
                 <article
-                  key={study.company}
+                  key={tr(locale, study.company)}
                   className="scroll-reveal scroll-reveal-d1 glass-card card-lift group relative overflow-hidden rounded-xl p-5"
                 >
                   <div className={`absolute inset-x-0 top-0 h-0.5 bg-linear-to-r ${accentLine} to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
@@ -310,28 +322,28 @@ export default function CustomersPage() {
                         <Icon className={`h-4 w-4 ${iconClass}`} />
                       </span>
                       <p className={`text-[11px] font-bold uppercase tracking-[0.14em] ${iconClass}`}>
-                        {study.industry}
+                        {tr(locale, study.industry)}
                       </p>
                     </div>
-                    <span className="text-xs font-bold text-[#6B7E9A]">{study.country}</span>
+                    <span className="text-xs font-bold text-[#6B7E9A]">{tr(locale, study.country)}</span>
                   </div>
 
                   {/* Metric block */}
                   <div className={`rounded-xl border ${metricBg} p-4 text-center`}>
-                    <p className={`text-5xl font-black ${metricCol}`}>{meta?.big}</p>
-                    <p className="mt-1 text-sm font-bold text-[#F7F4EF]">{meta?.label}</p>
-                    <p className="text-xs text-[#9AABC3]">{meta?.sub}</p>
+                    <p className={`text-5xl font-black ${metricCol}`}>{meta?.big ? tr(locale, meta.big) : null}</p>
+                    <p className="mt-1 text-sm font-bold text-[#F7F4EF]">{meta?.label ? tr(locale, meta.label) : null}</p>
+                    <p className="text-xs text-[#9AABC3]">{meta?.sub ? tr(locale, meta.sub) : null}</p>
                   </div>
 
                   <p className="mt-4 text-sm leading-6 text-[#9AABC3]">
-                    <span className="font-bold text-[#6B7E9A]">Challenge: </span>
-                    {study.challenge}
+                    <span className="font-bold text-[#6B7E9A]">{tr(locale, "Challenge: ")}</span>
+                    {tr(locale, study.challenge)}
                   </p>
                   <p className={`mt-3 border-l-2 ${borderAcc} pl-3 text-sm font-bold leading-6 text-[#F7F4EF]`}>
-                    {study.result}
+                    {tr(locale, study.result)}
                   </p>
                   <p className={`mt-4 text-xs font-semibold ${metricCol}`}>
-                    Agent: {study.agent}
+                    {tr(locale, "Agent")}: {tr(locale, study.agent)}
                   </p>
                 </article>
               );
@@ -346,9 +358,10 @@ export default function CustomersPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal mb-10">
-            <span className="brand-pill mb-6 inline-flex">What they say</span>
+            <span className="brand-pill mb-6 inline-flex">{tr(locale, "What they say")}</span>
             <h2 className="text-4xl font-black text-[#F7F4EF] sm:text-5xl">
-              From the people <span className="text-gold">who use it daily.</span>
+              {tr(locale, "From the people")}{" "}
+              <span className="text-gold">{tr(locale, "who use it daily.")}</span>
             </h2>
           </div>
 
@@ -358,12 +371,12 @@ export default function CustomersPage() {
               "
             </p>
             <p className="mt-1 text-xl font-semibold leading-9 text-[#F7F4EF] sm:text-2xl sm:leading-10">
-              {TESTIMONIALS[0].quote}
+              {tr(locale, TESTIMONIALS[0].quote)}
             </p>
             <footer className="mt-6 flex flex-wrap items-center gap-3">
-              <span className="teal-pill">{TESTIMONIALS[0].industry}</span>
+              <span className="teal-pill">{tr(locale, TESTIMONIALS[0].industry)}</span>
               <span className="text-sm font-bold text-[#C8A96E]">
-                — {TESTIMONIALS[0].role}
+                — {tr(locale, TESTIMONIALS[0].role)}
               </span>
             </footer>
           </blockquote>
@@ -372,16 +385,16 @@ export default function CustomersPage() {
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {TESTIMONIALS.slice(1).map((t, i) => (
               <blockquote
-                key={t.role}
+                key={tr(locale, t.role)}
                 className={`${i === 0 ? "scroll-reveal" : "scroll-reveal scroll-reveal-d1"} glass-card card-lift rounded-xl p-6`}
               >
                 <p className="select-none text-5xl font-black leading-none text-[#C8A96E]/20" aria-hidden>
                   "
                 </p>
-                <p className="mt-1 text-base leading-7 text-[#F7F4EF]">{t.quote}</p>
+                <p className="mt-1 text-base leading-7 text-[#F7F4EF]">{tr(locale, t.quote)}</p>
                 <footer className="mt-4 flex flex-wrap items-center gap-2">
-                  <span className="teal-pill py-0.5! text-[10px]!">{t.industry}</span>
-                  <span className="text-xs font-bold text-[#C8A96E]">— {t.role}</span>
+                  <span className="teal-pill py-0.5! text-[10px]!">{tr(locale, t.industry)}</span>
+                  <span className="text-xs font-bold text-[#C8A96E]">— {tr(locale, t.role)}</span>
                 </footer>
               </blockquote>
             ))}
@@ -393,17 +406,17 @@ export default function CustomersPage() {
       <section className="relative overflow-hidden bg-[#0B1628] px-5 py-20 sm:px-8">
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal gradient-border-gold glass-card rounded-2xl p-8 text-center sm:p-14">
-            <span className="brand-pill mb-6 inline-flex">Ready to start?</span>
+            <span className="brand-pill mb-6 inline-flex">{tr(locale, "Ready to start?")}</span>
             <h2 className="text-3xl font-black text-[#F7F4EF] sm:text-4xl lg:text-5xl">
-              Ready to become our next{" "}
-              <span className="text-gold">success story?</span>
+              {tr(locale, "Ready to become our next")}{" "}
+              <span className="text-gold">{tr(locale, "success story?")}</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-base leading-7 text-[#9AABC3]">
-              Live in 5 business days. No credit card required.
+              {tr(locale, "Live in 5 business days. No credit card required.")}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
-              <a href={SIGNUP_URLS.conversational} className="btn-ghost">Start Free</a>
+              <DemoCTA locale={locale} className="btn-primary">{tr(locale, "Book a Demo →")}</DemoCTA>
+              <a href={SIGNUP_URLS.conversational} className="btn-ghost">{tr(locale, "Start Free")}</a>
             </div>
           </div>
         </div>

@@ -1,3 +1,5 @@
+import { DEFAULT_LOCALE, isLocale } from "@/components/i18n";
+import { tr } from "@/components/content/strings";
 import type { Metadata } from "next";
 import { Globe, Layers, Rocket, Users, Wrench, Megaphone } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -91,7 +93,14 @@ const APPLY_STEPS = [
 
 /* ── page ──────────────────────────────────────────────────────── */
 
-export default function PartnersPage() {
+export default async function PartnersPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: raw } = await params;
+  const locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
+
   return (
     <main>
       {/* ── HERO ───────────────────────────────────────────────── */}
@@ -102,30 +111,30 @@ export default function PartnersPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="hero-in mb-8">
-            <span className="brand-pill">Services Partners</span>
+            <span className="brand-pill">{tr(locale, "Services Partners")}</span>
           </div>
 
           <div className="grid items-center gap-16 lg:grid-cols-[1fr_0.9fr]">
             <div>
               <h1 className="hero-in hero-in-d1 text-5xl font-black leading-tight text-[#F7F4EF] sm:text-6xl lg:text-7xl">
-                We provide the platform.<br />
-                <span className="text-gold-shimmer">You deliver for clients.</span>
+                {tr(locale, "We provide the platform.")}<br />
+                <span className="text-gold-shimmer">
+                  {tr(locale, "You deliver for clients.")}
+                </span>
               </h1>
               <p className="hero-in hero-in-d2 mt-6 max-w-xl text-xl leading-8 text-[#C8D2E2]">
-                BlueScaler partners are agencies, system integrators, and consultants
-                who implement AI agents for businesses across the Middle East.
-                We handle the technology — you own the client relationship.
+                {tr(locale, "BlueScaler partners are agencies, system integrators, and consultants who implement AI agents for businesses across the Middle East. We handle the technology — you own the client relationship.")}
               </p>
               <div className="hero-in hero-in-d3 mt-8 flex flex-wrap gap-4">
                 <a href={PARTNER_EMAIL_URL} className="btn-primary">
-                  Become a Partner →
+                  {tr(locale, "Become a Partner →")}
                 </a>
               </div>
             </div>
 
             {/* How it works card */}
             <div className="hero-card-in glass-card gradient-border-gold rounded-2xl p-5">
-              <p className="mb-5 text-sm font-black text-[#F7F4EF]">How it works</p>
+              <p className="mb-5 text-sm font-black text-[#F7F4EF]">{tr(locale, "How it works")}</p>
 
               <div className="space-y-3">
                 {HOW_IT_WORKS.map(({ label, items, color, border, bg }) => (
@@ -134,13 +143,13 @@ export default function PartnersPage() {
                     className={`rounded-xl border ${border} ${bg} px-4 py-3.5`}
                   >
                     <p className={`mb-2 text-[10px] font-black uppercase tracking-[0.16em] ${color}`}>
-                      {label}
+                      {tr(locale, label)}
                     </p>
                     <ul className="space-y-1">
                       {items.map((item) => (
                         <li key={item} className="flex items-center gap-2 text-xs text-[#9AABC3]">
                           <span className={`h-1 w-1 shrink-0 rounded-full ${color.replace("text-", "bg-")}`} />
-                          {item}
+                          {tr(locale, item)}
                         </li>
                       ))}
                     </ul>
@@ -155,8 +164,8 @@ export default function PartnersPage() {
                   { stat: "GCC",    label: "Region"        },
                 ].map(({ stat, label }) => (
                   <div key={label} className="rounded-xl bg-white/3 py-3 text-center">
-                    <p className="text-lg font-black text-[#F7F4EF]">{stat}</p>
-                    <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#6B7E9A]">{label}</p>
+                    <p className="text-lg font-black text-[#F7F4EF]">{tr(locale, stat)}</p>
+                    <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#6B7E9A]">{tr(locale, label)}</p>
                   </div>
                 ))}
               </div>
@@ -171,10 +180,10 @@ export default function PartnersPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal max-w-3xl">
-            <span className="teal-pill mb-6 inline-flex">The partnership model</span>
+            <span className="teal-pill mb-6 inline-flex">{tr(locale, "The partnership model")}</span>
             <h2 className="text-4xl font-black text-[#F7F4EF] sm:text-5xl">
-              A clear division of<br />
-              <span className="text-gold">responsibility.</span>
+              {tr(locale, "A clear division of")}<br />
+              <span className="text-gold">{tr(locale, "responsibility.")}</span>
             </h2>
           </div>
 
@@ -196,18 +205,18 @@ export default function PartnersPage() {
                           <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${b.iconBg}`}>
                             <b.Icon className={`h-5 w-5 ${b.iconColor}`} />
                           </span>
-                          <h3 className="mt-5 text-2xl font-black text-[#F7F4EF]">{b.title}</h3>
-                          <p className="mt-3 text-sm leading-6 text-[#9AABC3]">{b.body}</p>
+                          <h3 className="mt-5 text-2xl font-black text-[#F7F4EF]">{tr(locale, b.title)}</h3>
+                          <p className="mt-3 text-sm leading-6 text-[#9AABC3]">{tr(locale, b.body)}</p>
                         </div>
                         <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-[#7CE2EF]">
-                          Built for services businesses
+                          {tr(locale, "Built for services businesses")}
                         </p>
                       </div>
 
                       {/* What's included panel */}
                       <div className="flex flex-col justify-center rounded-xl border border-white/6 bg-black/20 p-5">
                         <p className="mb-4 text-xs font-bold uppercase tracking-[0.14em] text-[#6B7E9A]">
-                          What BlueScaler provides
+                          {tr(locale, "What BlueScaler provides")}
                         </p>
                         <ul className="space-y-3">
                           {[
@@ -219,7 +228,7 @@ export default function PartnersPage() {
                           ].map((item) => (
                             <li key={item} className="flex items-center gap-2.5 text-sm text-[#C8D2E2]">
                               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#7CE2EF]" />
-                              {item}
+                              {tr(locale, item)}
                             </li>
                           ))}
                         </ul>
@@ -238,8 +247,8 @@ export default function PartnersPage() {
                   <span className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl ${b.iconBg}`}>
                     <b.Icon className={`h-5 w-5 ${b.iconColor}`} />
                   </span>
-                  <h3 className="text-2xl font-black text-[#F7F4EF]">{b.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-[#9AABC3]">{b.body}</p>
+                  <h3 className="text-2xl font-black text-[#F7F4EF]">{tr(locale, b.title)}</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#9AABC3]">{tr(locale, b.body)}</p>
                 </article>
               );
             })}
@@ -253,10 +262,10 @@ export default function PartnersPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal max-w-3xl">
-            <span className="brand-pill mb-6 inline-flex">Who we work with</span>
+            <span className="brand-pill mb-6 inline-flex">{tr(locale, "Who we work with")}</span>
             <h2 className="text-4xl font-black text-[#F7F4EF] sm:text-5xl">
-              Built for businesses that<br />
-              <span className="text-gold">serve other businesses.</span>
+              {tr(locale, "Built for businesses that")}<br />
+              <span className="text-gold">{tr(locale, "serve other businesses.")}</span>
             </h2>
           </div>
 
@@ -274,18 +283,18 @@ export default function PartnersPage() {
 
                   <div className="mb-5">
                     <p className={`text-[11px] font-bold uppercase tracking-[0.16em] ${meta?.labelClass ?? "text-[#9AABC3]"}`}>
-                      {meta?.bestFor}
+                      {meta?.bestFor ? tr(locale, meta.bestFor) : null}
                     </p>
-                    <h3 className="mt-1 text-xl font-black text-[#F7F4EF]">{type.title}</h3>
+                    <h3 className="mt-1 text-xl font-black text-[#F7F4EF]">{tr(locale, type.title)}</h3>
                   </div>
 
-                  <p className="text-sm leading-6 text-[#9AABC3]">{type.body}</p>
+                  <p className="text-sm leading-6 text-[#9AABC3]">{tr(locale, type.body)}</p>
 
                   <a
                     href={PARTNER_EMAIL_URL}
                     className="btn-ghost mt-6 flex w-full items-center justify-center text-sm"
                   >
-                    Get in touch →
+                    {tr(locale, "Get in touch →")}
                   </a>
                 </article>
               );
@@ -301,10 +310,10 @@ export default function PartnersPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal mb-14 text-center">
-            <span className="brand-pill mb-6 inline-flex">How to Apply</span>
+            <span className="brand-pill mb-6 inline-flex">{tr(locale, "How to Apply")}</span>
             <h2 className="text-4xl font-black text-[#F7F4EF] sm:text-5xl">
-              Let&apos;s grow the GCC<br />
-              <span className="text-gold">together.</span>
+              {tr(locale, "Let's grow the GCC")}<br />
+              <span className="text-gold">{tr(locale, "together.")}</span>
             </h2>
           </div>
 
@@ -318,8 +327,8 @@ export default function PartnersPage() {
                     <p className="text-xl font-black text-[#C8A96E]">{num}</p>
                   </div>
                   <div className="mt-5 glass-card rounded-xl p-5">
-                    <p className="font-black text-[#F7F4EF]">{label}</p>
-                    <p className="mt-1.5 text-xs font-bold text-[#7CE2EF]">{time}</p>
+                    <p className="font-black text-[#F7F4EF]">{tr(locale, label)}</p>
+                    <p className="mt-1.5 text-xs font-bold text-[#7CE2EF]">{tr(locale, time)}</p>
                   </div>
                 </div>
               ))}
@@ -335,8 +344,8 @@ export default function PartnersPage() {
                   <div className="flex items-start gap-5">
                     <p className="text-gold shrink-0 text-3xl font-black">{num}</p>
                     <div>
-                      <p className="text-lg font-bold text-[#F7F4EF]">{label}</p>
-                      <p className="mt-1 text-xs font-bold text-[#7CE2EF]">{time}</p>
+                      <p className="text-lg font-bold text-[#F7F4EF]">{tr(locale, label)}</p>
+                      <p className="mt-1 text-xs font-bold text-[#7CE2EF]">{tr(locale, time)}</p>
                     </div>
                   </div>
                 </div>
@@ -346,10 +355,10 @@ export default function PartnersPage() {
 
           <div className="mt-14 text-center">
             <a href={PARTNER_EMAIL_URL} className="btn-primary">
-              Apply to Partner →
+              {tr(locale, "Apply to Partner →")}
             </a>
             <p className="mt-4 text-sm text-[#6B7E9A]">
-              We respond within 2 business days
+              {tr(locale, "We respond within 2 business days")}
             </p>
           </div>
         </div>

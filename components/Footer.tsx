@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DemoCTA } from "./DemoCTA";
+import { getCopy } from "./content/site";
+import { localizedPath, type Locale } from "./i18n";
 import {
   CONTACT_EMAIL_URL,
-  DEMO_BOOKING_URL,
   PARTNER_EMAIL_URL,
   SIGNUP_URLS,
   SUPPORT_EMAIL_URL,
@@ -11,39 +12,16 @@ import {
 
 const LOGO_SRC = "/agentnomics_logo.png";
 
-const FOOTER_COLS = [
-  {
-    heading: "Platform",
-    links: [
-      { label: "Conversational Agents", href: "/agents" },
-      { label: "Analytical Agents", href: "/agents" },
-      { label: "No-Code Builder", href: "/agents" },
-      { label: "Industries", href: "/industries" },
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
-      { label: "Customers", href: "/customers" },
-      { label: "Partners", href: "/partners" },
-      { label: "Book a Demo", href: DEMO_BOOKING_URL },
-      { label: "Partner Programme", href: PARTNER_EMAIL_URL },
-    ],
-  },
-  {
-    heading: "Support",
-    links: [
-      { label: "Get Started", href: SIGNUP_URLS.conversational },
-      { label: "Contact Sales", href: CONTACT_EMAIL_URL },
-      { label: "Support", href: SUPPORT_EMAIL_URL },
-      { label: "Privacy Policy", href: "#" },
-    ],
-  },
-];
+/** Link tokens the copy uses so translated labels never carry a mailto. */
+const HREF_TOKENS: Record<string, string> = {
+  "contact-email": CONTACT_EMAIL_URL,
+  "support-email": SUPPORT_EMAIL_URL,
+  "partner-email": PARTNER_EMAIL_URL,
+};
 
-const GCC_REGIONS = ["UAE", "Saudi Arabia", "Qatar", "Kuwait"];
+export function Footer({ locale }: { locale: Locale }) {
+  const t = getCopy(locale).footer;
 
-export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#030609]">
       {/* Gold gradient top line */}
@@ -60,18 +38,19 @@ export function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#C8A96E]">
-              Ready to automate?
+              {t.ctaEyebrow}
             </p>
             <h2 className="mt-2 text-2xl font-black text-[#F7F4EF] sm:text-3xl">
-              Deploy your first AI agent{" "}
-              <span className="text-gold">in days.</span>
+              {t.ctaTitle} <span className="text-gold">{t.ctaAccent}</span>
             </h2>
           </div>
           <div className="flex flex-wrap gap-3">
             <a href={SIGNUP_URLS.conversational} className="btn-primary">
-              Get Started →
+              {t.getStarted}
             </a>
-            <DemoCTA className="btn-ghost">Book a Demo</DemoCTA>
+            <DemoCTA locale={locale} className="btn-ghost">
+              {t.bookDemo}
+            </DemoCTA>
           </div>
         </div>
       </div>
@@ -80,10 +59,12 @@ export function Footer() {
       <div className="relative px-5 pb-10 pt-12 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
-
             {/* Brand column */}
             <div>
-              <Link href="/" className="inline-flex items-center gap-3">
+              <Link
+                href={localizedPath("/", locale)}
+                className="inline-flex items-center gap-3"
+              >
                 <Image
                   src={LOGO_SRC}
                   alt="Agentnomics"
@@ -93,26 +74,25 @@ export function Footer() {
                 />
                 <span className="leading-tight">
                   <span className="block text-base font-black tracking-tight text-[#F7F4EF]">
-                    BlueScaler
+                    {getCopy(locale).nav.brand}
                   </span>
                   <span className="block text-[10px] font-medium text-[#6B7E9A]">
-                    powered by Agentnomics
+                    {getCopy(locale).nav.brandSub}
                   </span>
                 </span>
               </Link>
 
-              <p className="mt-5 max-w-[22ch] text-sm leading-7 text-[#6B7E9A]">
-                AI agents built for GCC SMBs — automating conversations and
-                unlocking business insights.
+              <p className="mt-5 max-w-[28ch] text-sm leading-7 text-[#6B7E9A]">
+                {t.tagline}
               </p>
 
               {/* Region tags */}
               <div className="mt-6">
                 <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[#4A5568]">
-                  GCC coverage
+                  {t.coverage}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {GCC_REGIONS.map((region) => (
+                  {t.regions.map((region) => (
                     <span
                       key={region}
                       className="rounded-full border border-white/8 bg-white/3 px-3 py-1 text-[11px] font-semibold text-[#6B7E9A]"
@@ -125,7 +105,7 @@ export function Footer() {
             </div>
 
             {/* Link columns */}
-            {FOOTER_COLS.map((col) => (
+            {t.columns.map((col) => (
               <div key={col.heading}>
                 <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.18em] text-[#4A5568]">
                   {col.heading}
@@ -133,20 +113,23 @@ export function Footer() {
                 <ul className="space-y-3.5">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      {link.href === DEMO_BOOKING_URL ? (
-                        <DemoCTA className="text-sm font-medium text-[#6B7E9A] transition-colors hover:text-[#C8A96E]">
+                      {link.href === "demo" ? (
+                        <DemoCTA
+                          locale={locale}
+                          className="text-sm font-medium text-[#6B7E9A] transition-colors hover:text-[#C8A96E]"
+                        >
                           {link.label}
                         </DemoCTA>
                       ) : link.href.startsWith("/") ? (
                         <Link
-                          href={link.href}
+                          href={localizedPath(link.href, locale)}
                           className="text-sm font-medium text-[#6B7E9A] transition-colors hover:text-[#C8A96E]"
                         >
                           {link.label}
                         </Link>
                       ) : (
                         <a
-                          href={link.href}
+                          href={HREF_TOKENS[link.href] ?? link.href}
                           className="text-sm font-medium text-[#6B7E9A] transition-colors hover:text-[#C8A96E]"
                         >
                           {link.label}
@@ -161,13 +144,12 @@ export function Footer() {
 
           {/* ── Bottom bar ──────────────────────────────────────── */}
           <div className="mt-12 flex flex-col gap-3 border-t border-white/5 pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-[#3A4557]">{t.rights}</p>
             <p className="text-sm text-[#3A4557]">
-              © 2026 Agentnomics. All rights reserved.
-            </p>
-            <p className="text-sm text-[#3A4557]">
-              Built for the Gulf ·{" "}
+              {t.builtFor}{" "}
               <a
                 href={SUPPORT_EMAIL_URL}
+                dir="ltr"
                 className="text-[#6B7E9A] transition-colors hover:text-[#C8A96E]"
               >
                 support@agentnomics.ai

@@ -3,10 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { getCopy } from "./content/site";
+import type { Locale } from "./i18n";
 import { DEMO_BOOKING_URL } from "./site-content";
 import { submitLead } from "./submit-lead";
 
 type DemoCTAProps = {
+  locale: Locale;
   className?: string;
   children: React.ReactNode;
 };
@@ -19,7 +22,7 @@ type DemoCTAProps = {
  * Renders a real anchor to the booking URL, so with JavaScript disabled the
  * click still works exactly as it did before.
  */
-export function DemoCTA({ className, children }: DemoCTAProps) {
+export function DemoCTA({ locale, className, children }: DemoCTAProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -42,12 +45,22 @@ export function DemoCTA({ className, children }: DemoCTAProps) {
           containers, which would otherwise become the containing block for
           the overlay's `position: fixed` and trap it in a small box. */}
       {open &&
-        createPortal(<DemoModal onClose={() => setOpen(false)} />, document.body)}
+        createPortal(
+          <DemoModal locale={locale} onClose={() => setOpen(false)} />,
+          document.body,
+        )}
     </>
   );
 }
 
-function DemoModal({ onClose }: { onClose: () => void }) {
+function DemoModal({
+  locale,
+  onClose,
+}: {
+  locale: Locale;
+  onClose: () => void;
+}) {
+  const t = getCopy(locale).demoModal;
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
@@ -119,21 +132,21 @@ function DemoModal({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close"
-          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-[#9AABC3] transition-colors hover:border-white/20 hover:text-[#F7F4EF]"
+          aria-label={t.close}
+          className="absolute end-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-[#9AABC3] transition-colors hover:border-white/20 hover:text-[#F7F4EF]"
         >
           <X className="h-4 w-4" />
         </button>
 
-        <span className="brand-pill mb-5 inline-flex">Book a Demo</span>
+        <span className="brand-pill mb-5 inline-flex">{t.pill}</span>
         <h2
           id="demo-modal-title"
           className="text-2xl font-black leading-tight text-[#F7F4EF]"
         >
-          Let&apos;s find the right agent for you
+          {t.heading}
         </h2>
         <p className="mt-2 text-sm leading-6 text-[#9AABC3]">
-          A few details so we can prepare — then pick a time that suits you.
+          {t.body}
         </p>
 
         <form onSubmit={handleSubmit} className="mt-6 grid gap-4">
@@ -149,7 +162,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
-              Name
+              {t.name}
               <input
                 ref={firstFieldRef}
                 name="name"
@@ -157,59 +170,59 @@ function DemoModal({ onClose }: { onClose: () => void }) {
                 required
                 autoComplete="name"
                 className="form-input"
-                placeholder="Your name"
+                placeholder={t.namePlaceholder}
               />
             </label>
             <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
-              Work email
+              {t.email}
               <input
                 name="email"
                 type="email"
                 required
                 autoComplete="email"
                 className="form-input"
-                placeholder="you@company.com"
+                placeholder={t.emailPlaceholder}
               />
             </label>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
-              Company
+              {t.company}
               <input
                 name="company"
                 type="text"
                 autoComplete="organization"
                 className="form-input"
-                placeholder="Company name"
+                placeholder={t.companyPlaceholder}
               />
             </label>
             <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
               {/* One element, or the grid puts the hint on its own row. */}
               <span>
-                Phone{" "}
-                <span className="font-normal text-[#6B7E9A]">(optional)</span>
+                {t.phone}{" "}
+                <span className="font-normal text-[#6B7E9A]">{t.optional}</span>
               </span>
               <input
                 name="phone"
                 type="tel"
                 autoComplete="tel"
                 className="form-input"
-                placeholder="+971 ..."
+                placeholder={t.phonePlaceholder}
               />
             </label>
           </div>
 
           <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
             <span>
-              What do you want to automate?{" "}
-              <span className="font-normal text-[#6B7E9A]">(optional)</span>
+              {t.needs}{" "}
+              <span className="font-normal text-[#6B7E9A]">{t.optional}</span>
             </span>
             <textarea
               name="message"
               rows={3}
               className="form-input resize-none"
-              placeholder="Customer support on WhatsApp, order taking, reporting..."
+              placeholder={t.needsPlaceholder}
             />
           </label>
 
@@ -221,22 +234,17 @@ function DemoModal({ onClose }: { onClose: () => void }) {
 
           <div className="flex flex-wrap items-center gap-3">
             <button type="submit" className="btn-primary" disabled={pending || done}>
-              {done
-                ? "Opening calendar…"
-                : pending
-                  ? "Sending…"
-                  : "Continue to booking →"}
+              {done ? t.opening : pending ? t.submitting : t.submit}
             </button>
             {error && (
               <button type="button" onClick={goToCalendar} className="btn-ghost">
-                Skip to calendar
+                {t.skip}
               </button>
             )}
           </div>
 
           <p className="text-xs leading-5 text-[#6B7E9A]">
-            We&apos;ll email you back within one business day. Next you&apos;ll
-            pick a slot on our calendar.
+            {t.footnote}
           </p>
         </form>
       </div>

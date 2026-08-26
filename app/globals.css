@@ -30,6 +30,34 @@ body {
   overflow-x: clip;
 }
 
+/* Jakarta has no Arabic coverage — without this the whole page falls back to
+   whatever the OS picks, which varies wildly and reads as unbranded. */
+html[lang="ar"] body {
+  font-family: var(--font-cairo), "Segoe UI", Tahoma, sans-serif;
+}
+
+/* Arabic sets taller than Latin at the same size — its ascenders and
+   descenders overrun the display leading, so headings collide. Relax the
+   tightest tracking and leading for Arabic only. */
+html[lang="ar"] .tracking-tight,
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3 {
+  letter-spacing: 0;
+}
+
+/* !important because the headings carry Tailwind arbitrary-value leading
+   utilities (leading-[1.02]) that otherwise win the cascade here. */
+html[lang="ar"] h1,
+html[lang="ar"] h2 {
+  line-height: 1.45 !important;
+}
+
+html[lang="ar"] h3,
+html[lang="ar"] h4 {
+  line-height: 1.5 !important;
+}
+
 ::selection {
   background: var(--accent-gold);
   color: var(--background);

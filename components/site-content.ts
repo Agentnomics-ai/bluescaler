@@ -3,6 +3,13 @@ export const SIGNUP_URLS = {
   analytical: "https://app.agentnomics.ai/signup/analytical-agent",
 };
 
+/** Platform-scoped trial entry points for the analytical agent families. */
+export const TRIAL_SIGNUP_URLS = {
+  sap: "https://app.agentnomics.ai/signup/agents-trial?entry_platform=sap",
+  salesforce:
+    "https://app.agentnomics.ai/signup/agents-trial?entry_platform=salesforce",
+};
+
 export const DEMO_BOOKING_URL = "https://calendar.app.google/mshQQNn8UMNhjcGdA";
 
 export const CONTACT_EMAIL_URL = "mailto:sales@agentnomics.ai";
@@ -91,6 +98,8 @@ export const ANALYTICAL_AGENT_FAMILIES = [
   {
     system: "SAP Finance",
     accent: "gold" as const,
+    signupUrl:
+      "https://app.agentnomics.ai/signup/agents-trial?entry_platform=sap",
     blurb:
       "AI agents for SAP finance teams. Analyze cash flow, break down spend by supplier and category, assess receivables risk, and optimize working capital — all from your SAP procurement and financial data.",
     agents: [
@@ -129,6 +138,8 @@ export const ANALYTICAL_AGENT_FAMILIES = [
   {
     system: "Salesforce Customer Success",
     accent: "teal" as const,
+    signupUrl:
+      "https://app.agentnomics.ai/signup/agents-trial?entry_platform=salesforce",
     blurb:
       "AI agents on top of your Sales Cloud and Service Cloud data. Surface at-risk pipeline, sharpen forecasts, and protect renewals — so reps, RevOps, and CS teams act on the right deal, account, and case first.",
     agents: [

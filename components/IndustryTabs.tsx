@@ -2,9 +2,11 @@
 
 import { Lightbulb } from "lucide-react";
 import { useState } from "react";
+import { tr } from "./content/strings";
+import type { Locale } from "./i18n";
 import { INDUSTRY_TABS } from "./site-content";
 
-export function IndustryTabs() {
+export function IndustryTabs({ locale }: { locale: Locale }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = INDUSTRY_TABS[activeIndex];
 
@@ -14,10 +16,10 @@ export function IndustryTabs() {
 
       <div className="relative mx-auto max-w-7xl">
         <div className="scroll-reveal mb-10 max-w-3xl">
-          <span className="brand-pill mb-6 inline-flex">Industry Playbooks</span>
+          <span className="brand-pill mb-6 inline-flex">{tr(locale, "Industry Playbooks")}</span>
           <h2 className="text-4xl font-black text-[#F7F4EF] sm:text-5xl">
-            Pick your vertical,{" "}
-            <span className="text-gold">see the exact fit.</span>
+            {tr(locale, "Pick your vertical,")}{" "}
+            <span className="text-gold">{tr(locale, "see the exact fit.")}</span>
           </h2>
         </div>
 
@@ -36,7 +38,7 @@ export function IndustryTabs() {
                     : "border border-white/10 bg-white/3 text-[#C8D2E2] hover:border-[#C8A96E]/40 hover:text-[#C8A96E]"
                 }`}
               >
-                {industry.label}
+                {tr(locale, industry.label)}
               </button>
             );
           })}
@@ -47,15 +49,15 @@ export function IndustryTabs() {
           <div className="flex flex-col justify-between gap-8">
             <div>
               <h3 className="text-3xl font-black text-[#F7F4EF]">
-                {active.label}
+                {tr(locale, active.label)}
               </h3>
               <p className="mt-5 text-lg leading-8 text-[#C8D2E2]">
-                {active.value}
+                {tr(locale, active.value)}
               </p>
               {active.insight && (
                 <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-[#1A8FA0]/30 bg-[#1A8FA0]/[0.07] p-4 text-sm font-semibold leading-6 text-[#7CE2EF]">
                   <Lightbulb className="mt-0.5 h-4 w-4 shrink-0" />
-                  <span>{active.insight} — Capgemini</span>
+                  <span>{tr(locale, active.insight)} — Capgemini</span>
                 </div>
               )}
             </div>
@@ -67,7 +69,7 @@ export function IndustryTabs() {
                       0{i + 1}
                     </p>
                     <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-[#6B7E9A]">
-                      {label}
+                      {tr(locale, label)}
                     </p>
                   </div>
                 ),
@@ -77,7 +79,7 @@ export function IndustryTabs() {
 
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:mt-0">
             <div className="rounded-xl border border-white/8 bg-white/3 p-5">
-              <h4 className="font-black text-[#F7F4EF]">Key challenges</h4>
+              <h4 className="font-black text-[#F7F4EF]">{tr(locale, "Key challenges")}</h4>
               <ul className="mt-4 space-y-3">
                 {active.challenges.map((challenge) => (
                   <li
@@ -85,14 +87,14 @@ export function IndustryTabs() {
                     className="flex items-start gap-2 text-sm leading-6 text-[#C8D2E2]"
                   >
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#C8A96E]" />
-                    {challenge}
+                    {tr(locale, challenge)}
                   </li>
                 ))}
               </ul>
             </div>
             <div className="rounded-xl border border-[#1A8FA0]/20 bg-[#1A8FA0]/[0.04] p-5">
               <h4 className="font-black text-[#F7F4EF]">
-                BlueScaler in action
+                {tr(locale, "BlueScaler in action")}
               </h4>
               <ul className="mt-4 space-y-3">
                 {active.actions.map((action) => (
@@ -101,7 +103,7 @@ export function IndustryTabs() {
                     className="flex items-start gap-2 text-sm leading-6 text-[#C8D2E2]"
                   >
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#7CE2EF]" />
-                    {action}
+                    {tr(locale, action)}
                   </li>
                 ))}
               </ul>

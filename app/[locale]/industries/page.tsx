@@ -1,3 +1,5 @@
+import { DEFAULT_LOCALE, isLocale, localizedPath } from "@/components/i18n";
+import { tr, trList } from "@/components/content/strings";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DemoCTA } from "@/components/DemoCTA";
@@ -56,7 +58,14 @@ const SHIPMENTS = [
   { id: "#SHP-4823", dest: "Sharjah",       status: "Out for delivery", statusClass: "text-[#7CE2EF]" },
 ];
 
-export default function IndustriesPage() {
+export default async function IndustriesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: raw } = await params;
+  const locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
+
   return (
     <main>
       {/* ── HERO ───────────────────────────────────────────────── */}
@@ -67,34 +76,34 @@ export default function IndustriesPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="hero-in mb-8">
-            <span className="brand-pill">Industries</span>
+            <span className="brand-pill">{tr(locale, "Industries")}</span>
           </div>
 
           <div className="grid items-center gap-16 lg:grid-cols-[1fr_0.9fr]">
             <div>
               <h1 className="hero-in hero-in-d1 text-5xl font-black leading-tight text-[#F7F4EF] sm:text-6xl lg:text-7xl">
-                AI agents built<br />
-                for your <span className="text-gold-shimmer">industry.</span>
+                {tr(locale, "AI agents built")}<br />
+                {tr(locale, "for your")}{" "}
+                <span className="text-gold-shimmer">{tr(locale, "industry.")}</span>
               </h1>
               <p className="hero-in hero-in-d2 mt-6 max-w-xl text-xl leading-8 text-[#C8D2E2]">
-                From restaurants to retail, logistics to healthcare — BlueScaler
-                agents plug into how your business already works.
+                {tr(locale, "From restaurants to retail, logistics to healthcare — BlueScaler agents plug into how your business already works.")}
               </p>
               <div className="hero-in hero-in-d3 mt-8 flex flex-wrap gap-4">
-                <Link href="/agents" className="btn-primary">See the Agents →</Link>
-                <DemoCTA className="btn-ghost">Book a Demo</DemoCTA>
+                <Link href={localizedPath("/agents", locale)} className="btn-primary">{tr(locale, "See the Agents →")}</Link>
+                <DemoCTA locale={locale} className="btn-ghost">{tr(locale, "Book a Demo")}</DemoCTA>
               </div>
             </div>
 
             {/* Market signals card */}
             <div className="hero-card-in glass-card gradient-border-gold rounded-2xl p-5">
-              <p className="mb-4 text-sm font-bold text-[#F7F4EF]">Market coverage</p>
+              <p className="mb-4 text-sm font-bold text-[#F7F4EF]">{tr(locale, "Market coverage")}</p>
               <div className="grid grid-cols-3 gap-3">
                 {MARKET_SIGNALS.map(({ stat, label, Icon }) => (
                   <div key={label} className="rounded-xl bg-white/3 p-4 text-center">
                     <span className="flex justify-center"><Icon className="h-5 w-5 text-[#C8A96E]" /></span>
                     <p className="mt-2 text-2xl font-black text-[#F7F4EF]">{stat}</p>
-                    <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#9AABC3]">{label}</p>
+                    <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#9AABC3]">{tr(locale, label)}</p>
                   </div>
                 ))}
               </div>
@@ -103,8 +112,8 @@ export default function IndustriesPage() {
                   <div key={title} className="group flex items-center gap-3 rounded-xl border border-white/6 bg-white/3 p-3 transition-colors hover:border-[#1A8FA0]/40 cursor-pointer">
                     <span className="h-full w-0.5 shrink-0 self-stretch rounded-full bg-[#1A8FA0] opacity-0 transition-opacity group-hover:opacity-100" />
                     <div>
-                      <p className="font-black text-[#C8A96E]">{title}</p>
-                      <p className="text-sm text-[#9AABC3]">{body}</p>
+                      <p className="font-black text-[#C8A96E]">{tr(locale, title)}</p>
+                      <p className="text-sm text-[#9AABC3]">{tr(locale, body)}</p>
                     </div>
                   </div>
                 ))}
@@ -115,7 +124,7 @@ export default function IndustriesPage() {
       </section>
 
       {/* ── INDUSTRY TABS ─────────────────────────────────────── */}
-      <IndustryTabs />
+      <IndustryTabs locale={locale} />
 
       {/* ── BUSINESS IMPACT BENTO ─────────────────────────────── */}
       <section className="relative overflow-hidden bg-[#0B1628] px-5 py-20 sm:px-8 lg:py-28">
@@ -123,13 +132,13 @@ export default function IndustriesPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal max-w-3xl">
-            <span className="teal-pill mb-6 inline-flex">Business Impact</span>
+            <span className="teal-pill mb-6 inline-flex">{tr(locale, "Business Impact")}</span>
             <h2 className="text-4xl font-black text-[#F7F4EF] sm:text-5xl">
-              One platform,<br />
-              <span className="text-teal">six industries.</span>
+              {tr(locale, "One platform,")}<br />
+              <span className="text-teal">{tr(locale, "six industries.")}</span>
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#C8D2E2]">
-              Each vertical gets purpose-built agent flows — not a generic chatbot repurposed for your industry.
+              {tr(locale, "Each vertical gets purpose-built agent flows — not a generic chatbot repurposed for your industry.")}
             </p>
           </div>
 
@@ -140,7 +149,7 @@ export default function IndustriesPage() {
                 Icon: Zap, accentClass: "from-white/30", iconBg: "bg-white/5", iconClass: "text-[#9AABC3]", dotClass: "bg-[#9AABC3]",
               };
               const { Icon } = meta;
-              const capabilities = row.capabilities.split(", ");
+              const capabilities = trList(locale, row.capabilities);
 
               /* ── Featured: Restaurants & F&B (col-span-2) ─────── */
               if (i === 0) {
@@ -158,9 +167,9 @@ export default function IndustriesPage() {
                           <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${meta.iconBg}`}>
                             <Icon className={`h-5 w-5 ${meta.iconClass}`} />
                           </span>
-                          <span className="brand-pill">{row.industry}</span>
+                          <span className="brand-pill">{tr(locale, row.industry)}</span>
                         </div>
-                        <h3 className="mt-4 text-2xl font-black leading-snug text-[#F7F4EF]">{row.impact}</h3>
+                        <h3 className="mt-4 text-2xl font-black leading-snug text-[#F7F4EF]">{tr(locale, row.impact)}</h3>
                         <ul className="mt-5 space-y-2.5">
                           {capabilities.map((cap) => (
                             <li key={cap} className="flex items-center gap-2.5 text-sm text-[#9AABC3]">
@@ -169,7 +178,7 @@ export default function IndustriesPage() {
                             </li>
                           ))}
                         </ul>
-                        <DemoCTA className="btn-primary-sm mt-6 self-start">Book a Demo →</DemoCTA>
+                        <DemoCTA locale={locale} className="btn-primary-sm mt-6 self-start">{tr(locale, "Book a Demo →")}</DemoCTA>
                       </div>
 
                       {/* Right: booking mockup */}
@@ -177,18 +186,18 @@ export default function IndustriesPage() {
                         <div className="rounded-xl border border-[#C8A96E]/25 bg-black/25 p-4">
                           <div className="mb-3 flex items-center gap-2">
                             <span className="h-2 w-2 rounded-full bg-[#C8A96E]" />
-                            <p className="text-xs font-bold text-[#C8A96E]">Booking confirmed</p>
+                            <p className="text-xs font-bold text-[#C8A96E]">{tr(locale, "Booking confirmed")}</p>
                           </div>
-                          <p className="font-black text-[#F7F4EF]">Al Bayt Restaurant</p>
-                          <p className="mt-0.5 text-sm text-[#9AABC3]">Tonight · 8PM · 4 guests</p>
+                          <p className="font-black text-[#F7F4EF]">{tr(locale, "Al Bayt Restaurant")}</p>
+                          <p className="mt-0.5 text-sm text-[#9AABC3]">{tr(locale, "Tonight · 8PM · 4 guests")}</p>
                           <div className="mt-3 space-y-1.5">
                             <div className="flex items-center gap-2 rounded-lg bg-[#1A8FA0]/10 px-3 py-2">
                               <MessageCircle className="h-3 w-3 shrink-0 text-[#7CE2EF]" />
-                              <p className="text-xs text-[#7CE2EF]">WhatsApp confirmation sent</p>
+                              <p className="text-xs text-[#7CE2EF]">{tr(locale, "WhatsApp confirmation sent")}</p>
                             </div>
                             <div className="flex items-center gap-2 rounded-lg bg-white/3 px-3 py-2">
                               <Clock className="h-3 w-3 shrink-0 text-[#6B7E9A]" />
-                              <p className="text-xs text-[#9AABC3]">Reminder set for 7:30PM</p>
+                              <p className="text-xs text-[#9AABC3]">{tr(locale, "Reminder set for 7:30PM")}</p>
                             </div>
                           </div>
                         </div>
@@ -196,13 +205,13 @@ export default function IndustriesPage() {
                         <div className="space-y-2 rounded-xl border border-white/6 bg-black/15 p-3">
                           <div className="flex justify-end">
                             <div className="max-w-[85%] rounded-xl rounded-tr-sm bg-[#C8A96E]/15 px-3 py-2">
-                              <p className="text-xs text-[#F7F4EF]">Book outdoor for 4 at 8 tonight</p>
+                              <p className="text-xs text-[#F7F4EF]">{tr(locale, "Book outdoor for 4 at 8 tonight")}</p>
                             </div>
                           </div>
                           <div className="flex items-end gap-1.5">
                             <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1A8FA0]/20 text-[9px] font-black text-[#7CE2EF]">A</span>
                             <div className="rounded-xl rounded-bl-sm border border-white/8 bg-white/4 px-3 py-2">
-                              <p className="text-xs text-[#C8D2E2]">Terrace confirmed at 8PM for 4 guests!</p>
+                              <p className="text-xs text-[#C8D2E2]">{tr(locale, "Terrace confirmed at 8PM for 4 guests!")}</p>
                             </div>
                           </div>
                         </div>
@@ -228,9 +237,9 @@ export default function IndustriesPage() {
                           <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${meta.iconBg}`}>
                             <Icon className={`h-5 w-5 ${meta.iconClass}`} />
                           </span>
-                          <span className="teal-pill">{row.industry}</span>
+                          <span className="teal-pill">{tr(locale, row.industry)}</span>
                         </div>
-                        <h3 className="mt-4 text-2xl font-black leading-snug text-[#F7F4EF]">{row.impact}</h3>
+                        <h3 className="mt-4 text-2xl font-black leading-snug text-[#F7F4EF]">{tr(locale, row.impact)}</h3>
                         <ul className="mt-4 space-y-2.5">
                           {capabilities.map((cap) => (
                             <li key={cap} className="flex items-center gap-2.5 text-sm text-[#9AABC3]">
@@ -244,7 +253,7 @@ export default function IndustriesPage() {
                       {/* Right: shipment tracker */}
                       <div className="rounded-xl border border-white/6 bg-black/20 p-4">
                         <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.14em] text-[#6B7E9A]">
-                          Active shipments · UAE region
+                          {tr(locale, "Active shipments · UAE region")}
                         </p>
                         <div className="space-y-2">
                           {SHIPMENTS.map(({ id, dest, status, statusClass }) => (
@@ -254,15 +263,15 @@ export default function IndustriesPage() {
                             >
                               <div>
                                 <p className="font-mono text-[11px] text-[#6B7E9A]">{id}</p>
-                                <p className="text-sm font-bold text-[#F7F4EF]">{dest}</p>
+                                <p className="text-sm font-bold text-[#F7F4EF]">{tr(locale, dest)}</p>
                               </div>
-                              <p className={`text-xs font-bold ${statusClass}`}>{status}</p>
+                              <p className={`text-xs font-bold ${statusClass}`}>{tr(locale, status)}</p>
                             </div>
                           ))}
                         </div>
                         <div className="mt-3 flex items-center justify-between border-t border-white/6 pt-3">
-                          <p className="text-xs text-[#6B7E9A]">Automated via Analytical Agent</p>
-                          <p className="text-xs font-bold text-[#7CE2EF]">0 manual calls today</p>
+                          <p className="text-xs text-[#6B7E9A]">{tr(locale, "Automated via Analytical Agent")}</p>
+                          <p className="text-xs font-bold text-[#7CE2EF]">{tr(locale, "0 manual calls today")}</p>
                         </div>
                       </div>
                     </div>
@@ -286,10 +295,10 @@ export default function IndustriesPage() {
                       <Icon className={`h-4 w-4 ${meta.iconClass}`} />
                     </span>
                     <p className={`text-[11px] font-bold uppercase tracking-[0.14em] ${meta.iconClass}`}>
-                      {row.industry}
+                      {tr(locale, row.industry)}
                     </p>
                   </div>
-                  <h3 className="text-lg font-black leading-snug text-[#F7F4EF]">{row.impact}</h3>
+                  <h3 className="text-lg font-black leading-snug text-[#F7F4EF]">{tr(locale, row.impact)}</h3>
                   <ul className="mt-4 space-y-2">
                     {capabilities.map((cap) => (
                       <li key={cap} className="flex items-center gap-2.5 text-sm text-[#9AABC3]">
@@ -305,17 +314,17 @@ export default function IndustriesPage() {
 
           {/* ── CTA ───────────────────────────────────────────────── */}
           <div className="scroll-reveal gradient-border-gold glass-card mt-12 rounded-2xl p-8 text-center sm:p-12">
-            <span className="brand-pill mb-5 inline-flex">Ready to start?</span>
+            <span className="brand-pill mb-5 inline-flex">{tr(locale, "Ready to start?")}</span>
             <h2 className="text-3xl font-black text-[#F7F4EF] sm:text-4xl">
-              Which industry are you<br />
-              <span className="text-gold">transforming today?</span>
+              {tr(locale, "Which industry are you")}<br />
+              <span className="text-gold">{tr(locale, "transforming today?")}</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-base leading-7 text-[#9AABC3]">
-              Live in 5 business days. No credit card required to start.
+              {tr(locale, "Live in 5 business days. No credit card required to start.")}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
-              <Link href="/agents" className="btn-ghost">See the Agents</Link>
+              <DemoCTA locale={locale} className="btn-primary">{tr(locale, "Book a Demo →")}</DemoCTA>
+              <Link href={localizedPath("/agents", locale)} className="btn-ghost">{tr(locale, "See the Agents")}</Link>
             </div>
           </div>
         </div>

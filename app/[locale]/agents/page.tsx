@@ -1,3 +1,5 @@
+import { DEFAULT_LOCALE, isLocale } from "@/components/i18n";
+import { tr } from "@/components/content/strings";
 import type { Metadata } from "next";
 import { DemoCTA } from "@/components/DemoCTA";
 import {
@@ -99,7 +101,14 @@ const BUILDER_PILLARS: { title: string; Icon: LucideIcon; desc: string }[] = [
   { title: "Pre-built templates", Icon: ClipboardList, desc: "Start from a proven template for your industry and customise from there." },
 ];
 
-export default function AgentsPage() {
+export default async function AgentsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: raw } = await params;
+  const locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
+
   return (
     <main>
       {/* ── HERO ───────────────────────────────────────────────── */}
@@ -129,33 +138,32 @@ export default function AgentsPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="hero-in mb-8">
-            <span className="brand-pill">Agents</span>
+            <span className="brand-pill">{tr(locale, "Agents")}</span>
           </div>
 
           <div className="grid items-center gap-16 lg:grid-cols-[1fr_0.95fr]">
             <div>
               <h1 className="hero-in hero-in-d1 text-5xl font-black leading-tight text-[#F7F4EF] sm:text-6xl lg:text-7xl">
-                Meet your<br />
-                <span className="text-gold-shimmer">AI agents.</span>
+                {tr(locale, "Meet your")}<br />
+                <span className="text-gold-shimmer">{tr(locale, "AI agents.")}</span>
               </h1>
               <p className="hero-in hero-in-d2 mt-6 max-w-xl text-xl leading-8 text-[#C8D2E2]">
-                Ready-to-deploy agents for customer conversations and business
-                analytics. Go live in days, not months.
+                {tr(locale, "Ready-to-deploy agents for customer conversations and business analytics. Go live in days, not months.")}
               </p>
               <div className="hero-in hero-in-d3 mt-8 flex flex-wrap gap-4">
                 <a href={SIGNUP_URLS.conversational} className="btn-primary">
-                  Sign Up →
+                  {tr(locale, "Sign Up →")}
                 </a>
-                <DemoCTA className="btn-ghost">Book a Demo</DemoCTA>
+                <DemoCTA locale={locale} className="btn-ghost">{tr(locale, "Book a Demo")}</DemoCTA>
               </div>
 
               <div className="hero-in hero-in-d4 mt-10 flex flex-wrap gap-3">
                 {AGENT_CATEGORIES.map(({ label, desc, Icon }) => (
                   <div key={label} className="glass-card rounded-xl px-4 py-3">
                     <p className="flex items-center gap-2 font-black text-[#F7F4EF]">
-                      <Icon className="h-4 w-4 text-[#C8A96E]" /> {label}
+                      <Icon className="h-4 w-4 text-[#C8A96E]" /> {tr(locale, label)}
                     </p>
-                    <p className="mt-1 text-xs text-[#9AABC3]">{desc}</p>
+                    <p className="mt-1 text-xs text-[#9AABC3]">{tr(locale, desc)}</p>
                   </div>
                 ))}
               </div>
@@ -164,15 +172,15 @@ export default function AgentsPage() {
             <div className="hero-card-in glass-card gradient-border-gold rounded-2xl">
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-white/8 px-5 py-4">
                 <div>
-                  <p className="text-sm font-black text-[#F7F4EF]">Live agent desk</p>
-                  <p className="mt-0.5 text-xs text-[#9AABC3]">Website · WhatsApp · Analytics</p>
+                  <p className="text-sm font-black text-[#F7F4EF]">{tr(locale, "Live agent desk")}</p>
+                  <p className="mt-0.5 text-xs text-[#9AABC3]">{tr(locale, "Website · WhatsApp · Analytics")}</p>
                 </div>
                 <span className="teal-pill shrink-0">
                   <span className="relative flex h-2 w-2 shrink-0">
                     <span className="animate-ping-slow absolute h-full w-full rounded-full bg-[#7CE2EF] opacity-70" />
                     <span className="relative flex h-2 w-2 rounded-full bg-[#7CE2EF]" />
                   </span>
-                  24/7 active
+                  {tr(locale, "24/7 active")}
                 </span>
               </div>
               <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
@@ -188,15 +196,15 @@ export default function AgentsPage() {
                 </div>
                 <div className="grid content-center gap-3 p-5">
                   {HERO_EVENTS.map(({ source, result, time, Icon }) => (
-                    <div key={result} className="flex items-center gap-3 rounded-xl border border-white/6 bg-white/3 p-3">
+                    <div key={tr(locale, result)} className="flex items-center gap-3 rounded-xl border border-white/6 bg-white/3 p-3">
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5">
                         <Icon className="h-4 w-4 text-[#9AABC3]" />
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#C8A96E]">{source}</p>
-                        <p className="mt-1 text-sm font-bold text-[#F7F4EF]">{result}</p>
+                        <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#C8A96E]">{tr(locale, source)}</p>
+                        <p className="mt-1 text-sm font-bold text-[#F7F4EF]">{tr(locale, result)}</p>
                       </div>
-                      <p className="shrink-0 text-base font-black text-[#7CE2EF]">{time}</p>
+                      <p className="shrink-0 text-base font-black text-[#7CE2EF]">{tr(locale, time)}</p>
                     </div>
                   ))}
                 </div>
@@ -213,21 +221,21 @@ export default function AgentsPage() {
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal mb-12 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <span className="brand-pill mb-6 inline-flex">Conversational Agents</span>
+              <span className="brand-pill mb-6 inline-flex">{tr(locale, "Conversational Agents")}</span>
               <h2 className="text-4xl font-black leading-tight text-[#F7F4EF] sm:text-5xl">
-                Aria handles your<br />
-                <span className="text-gold">customer support.</span>
+                {tr(locale, "Aria handles your")}<br />
+                <span className="text-gold">{tr(locale, "customer support.")}</span>
               </h2>
               <p className="mt-5 text-lg leading-8 text-[#C8D2E2]">
-                AI-powered chat across your website, WhatsApp, and app — 24/7, without hiring extra staff.
+                {tr(locale, "AI-powered chat across your website, WhatsApp, and app — 24/7, without hiring extra staff.")}
               </p>
             </div>
             {/* Quick stats */}
-            <div className="flex shrink-0 gap-6 text-right">
+            <div className="flex shrink-0 gap-6 text-end">
               {[["24/7", "Coverage"], ["< 5 min", "Setup"], ["Web + WA", "Channels"]].map(([val, lbl]) => (
                 <div key={lbl}>
-                  <p className="text-gold text-xl font-black">{val}</p>
-                  <p className="mt-0.5 text-xs font-bold text-[#6B7E9A]">{lbl}</p>
+                  <p className="text-gold text-xl font-black">{tr(locale, val)}</p>
+                  <p className="mt-0.5 text-xs font-bold text-[#6B7E9A]">{tr(locale, lbl)}</p>
                 </div>
               ))}
             </div>
@@ -254,48 +262,48 @@ export default function AgentsPage() {
                         <Icon className="h-5 w-5 text-[#C8A96E]" />
                       </span>
                       <div className="flex gap-1.5">
-                        <span className="teal-pill py-0.5! text-[10px]!">Website</span>
-                        <span className="teal-pill py-0.5! text-[10px]!">WhatsApp</span>
+                        <span className="teal-pill py-0.5! text-[10px]!">{tr(locale, "Website")}</span>
+                        <span className="teal-pill py-0.5! text-[10px]!">{tr(locale, "WhatsApp")}</span>
                       </div>
                     </div>
-                    <h3 className="mt-4 text-xl font-black text-[#F7F4EF]">{agent.name}</h3>
-                    <p className="mt-2 text-sm leading-6 text-[#9AABC3]">{agent.tagline}</p>
+                    <h3 className="mt-4 text-xl font-black text-[#F7F4EF]">{tr(locale, agent.name)}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#9AABC3]">{tr(locale, agent.tagline)}</p>
 
                     {/* Live chat preview */}
                     <div className="mt-5 space-y-2.5 rounded-xl border border-white/6 bg-black/20 p-4">
                       <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#6B7E9A]">
                         <span className="mr-2 inline-flex h-1.5 w-1.5 rounded-full bg-[#7CE2EF]" />
-                        Live conversation
+                        {tr(locale, "Live conversation")}
                       </p>
                       {/* User bubble */}
                       <div className="flex justify-end">
                         <div className="max-w-[82%] rounded-2xl rounded-tr-sm bg-[#C8A96E]/15 px-3.5 py-2.5">
-                          <p className="text-sm text-[#F7F4EF]">{preview.prompt}</p>
+                          <p className="text-sm text-[#F7F4EF]">{tr(locale, preview.prompt)}</p>
                         </div>
                       </div>
                       {/* Agent bubble */}
                       <div className="flex items-end gap-2">
                         <span className="mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1A8FA0]/20 text-[10px] font-black text-[#7CE2EF]">A</span>
                         <div className="max-w-[80%] rounded-2xl rounded-bl-sm border border-white/8 bg-white/4 px-3.5 py-2.5">
-                          <p className="text-sm text-[#C8D2E2]">{preview.reply}</p>
+                          <p className="text-sm text-[#C8D2E2]">{tr(locale, preview.reply)}</p>
                         </div>
                       </div>
                       {/* Second user message */}
                       <div className="flex justify-end">
                         <div className="max-w-[82%] rounded-2xl rounded-tr-sm bg-[#C8A96E]/15 px-3.5 py-2.5">
-                          <p className="text-sm text-[#F7F4EF]">Do you have outdoor seating?</p>
+                          <p className="text-sm text-[#F7F4EF]">{tr(locale, "Do you have outdoor seating?")}</p>
                         </div>
                       </div>
                       <div className="flex items-end gap-2">
                         <span className="mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1A8FA0]/20 text-[10px] font-black text-[#7CE2EF]">A</span>
                         <div className="max-w-[80%] rounded-2xl rounded-bl-sm border border-white/8 bg-white/4 px-3.5 py-2.5">
-                          <p className="text-sm text-[#C8D2E2]">Yes! Our terrace overlooks the marina.</p>
+                          <p className="text-sm text-[#C8D2E2]">{tr(locale, "Yes! Our terrace overlooks the marina.")}</p>
                         </div>
                       </div>
                     </div>
 
                     <a href={SIGNUP_URLS.conversational} className="btn-primary mt-6 w-full justify-center">
-                      Sign Up Today
+                      {tr(locale, "Sign Up Today")}
                     </a>
                   </article>
                 );
@@ -313,29 +321,29 @@ export default function AgentsPage() {
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#C8A96E]/10">
                       <Icon className="h-4 w-4 text-[#C8A96E]" />
                     </span>
-                    <span className="teal-pill py-0.5! text-[10px]!">WhatsApp</span>
+                    <span className="teal-pill py-0.5! text-[10px]!">{tr(locale, "WhatsApp")}</span>
                   </div>
-                  <h3 className="mt-3 text-base font-black text-[#F7F4EF]">{agent.name}</h3>
-                  <p className="mt-1.5 text-sm leading-6 text-[#9AABC3]">{agent.tagline}</p>
+                  <h3 className="mt-3 text-base font-black text-[#F7F4EF]">{tr(locale, agent.name)}</h3>
+                  <p className="mt-1.5 text-sm leading-6 text-[#9AABC3]">{tr(locale, agent.tagline)}</p>
 
                   {preview && (
                   <div className="mt-4 space-y-1.5 rounded-xl border border-white/6 bg-black/15 p-3">
                     <div className="flex justify-end">
                       <div className="max-w-[90%] rounded-xl rounded-tr-sm bg-[#C8A96E]/12 px-2.5 py-1.5">
-                        <p className="text-xs text-[#F7F4EF]">{preview.prompt}</p>
+                        <p className="text-xs text-[#F7F4EF]">{tr(locale, preview.prompt)}</p>
                       </div>
                     </div>
                     <div className="flex items-end gap-1.5">
                       <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#1A8FA0]/20 text-[9px] font-black text-[#7CE2EF]">A</span>
                       <div className="rounded-xl rounded-bl-sm border border-white/6 bg-white/4 px-2.5 py-1.5">
-                        <p className="text-xs text-[#C8D2E2]">{preview.reply}</p>
+                        <p className="text-xs text-[#C8D2E2]">{tr(locale, preview.reply)}</p>
                       </div>
                     </div>
                   </div>
                   )}
 
                   <a href={SIGNUP_URLS.conversational} className="btn-primary mt-4 w-full justify-center py-2! px-4! text-sm!">
-                    Sign Up Today
+                    {tr(locale, "Sign Up Today")}
                   </a>
                 </article>
               );
@@ -357,7 +365,7 @@ export default function AgentsPage() {
                     />
                   </div>
                 </div>
-                <h3 className="mt-4 text-lg font-bold text-[#F7F4EF]">{video.title}</h3>
+                <h3 className="mt-4 text-lg font-bold text-[#F7F4EF]">{tr(locale, video.title)}</h3>
               </article>
             ))}
           </div>
@@ -371,13 +379,13 @@ export default function AgentsPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal mb-12 max-w-3xl">
-            <span className="teal-pill mb-6 inline-flex">Analytical Agents</span>
+            <span className="teal-pill mb-6 inline-flex">{tr(locale, "Analytical Agents")}</span>
             <h2 className="text-4xl font-black text-[#F7F4EF] sm:text-5xl">
-              Ask your business data<br />
-              <span className="text-teal">questions.</span>
+              {tr(locale, "Ask your business data")}<br />
+              <span className="text-teal">{tr(locale, "questions.")}</span>
             </h2>
             <p className="mt-5 text-xl leading-8 text-[#C8D2E2]">
-              Get instant answers, charts, and recommendations — just ask in plain English.
+              {tr(locale, "Get instant answers, charts, and recommendations — just ask in plain English.")}
             </p>
           </div>
 
@@ -391,18 +399,18 @@ export default function AgentsPage() {
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#1A8FA0]/10">
                 <TrendingUp className="h-5 w-5 text-[#7CE2EF]" />
               </span>
-              <h3 className="mt-4 text-xl font-black text-[#F7F4EF]">{ANALYTICAL_AGENTS[0].name}</h3>
-              <p className="mt-2 text-sm leading-6 text-[#9AABC3]">{ANALYTICAL_AGENTS[0].description}</p>
+              <h3 className="mt-4 text-xl font-black text-[#F7F4EF]">{tr(locale, ANALYTICAL_AGENTS[0].name)}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#9AABC3]">{tr(locale, ANALYTICAL_AGENTS[0].description)}</p>
 
               {/* Sample query */}
               <div className="mt-5 rounded-xl border border-[#1A8FA0]/25 bg-[#1A8FA0]/6 px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#1A8FA0]">Sample query</p>
-                <p className="mt-1 text-sm font-semibold text-[#F7F4EF]">&ldquo;What were my top revenue days last month?&rdquo;</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#1A8FA0]">{tr(locale, "Sample query")}</p>
+                <p className="mt-1 text-sm font-semibold text-[#F7F4EF]">&ldquo;{tr(locale, "What were my top revenue days last month?")}&rdquo;</p>
               </div>
 
               {/* Trendline */}
               <div className="mt-4 overflow-hidden rounded-xl border border-white/6 bg-black/20 px-4 pb-4 pt-3">
-                <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[#6B7E9A]">Revenue · 30 days</p>
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[#6B7E9A]">{tr(locale, "Revenue · 30 days")}</p>
                 <svg viewBox="0 0 280 56" className="h-14 w-full" preserveAspectRatio="none" aria-hidden>
                   <defs>
                     <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
@@ -425,13 +433,13 @@ export default function AgentsPage() {
                   />
                 </svg>
                 <div className="mt-2 flex items-center justify-between">
-                  <p className="text-xs text-[#4A5568]">Last 30 days</p>
+                  <p className="text-xs text-[#4A5568]">{tr(locale, "Last 30 days")}</p>
                   <p className="text-sm font-black text-[#7CE2EF]">+23% ↑</p>
                 </div>
               </div>
 
               <a href={SIGNUP_URLS.analytical} className="btn-primary mt-5 w-full justify-center">
-                Sign Up Today
+                {tr(locale, "Sign Up Today")}
               </a>
             </article>
 
@@ -449,18 +457,18 @@ export default function AgentsPage() {
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1A8FA0]/10">
                     <Icon className="h-4 w-4 text-[#7CE2EF]" />
                   </span>
-                  <h3 className="mt-3 text-base font-black text-[#F7F4EF]">{agent.name}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#9AABC3]">{agent.description}</p>
+                  <h3 className="mt-3 text-base font-black text-[#F7F4EF]">{tr(locale, agent.name)}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#9AABC3]">{tr(locale, agent.description)}</p>
                   {query && (
                     <div className="mt-4 rounded-lg border border-[#1A8FA0]/18 bg-[#1A8FA0]/5 px-3 py-2">
-                      <p className="text-xs font-medium text-[#7CE2EF]">&ldquo;{query}&rdquo;</p>
+                      <p className="text-xs font-medium text-[#7CE2EF]">&ldquo;{tr(locale, query)}&rdquo;</p>
                     </div>
                   )}
                   <a
                     href={SIGNUP_URLS.analytical}
                     className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-[#C8A96E] transition-colors hover:text-[#E8C47A]"
                   >
-                    Sign Up →
+                    {tr(locale, "Sign Up →")}
                   </a>
                 </article>
               );
@@ -476,13 +484,13 @@ export default function AgentsPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="scroll-reveal max-w-3xl">
-            <span className="brand-pill mb-6 inline-flex">No-Code Builder</span>
+            <span className="brand-pill mb-6 inline-flex">{tr(locale, "No-Code Builder")}</span>
             <h2 className="text-4xl font-black text-[#F7F4EF] sm:text-5xl">
-              Build your own agent.<br />
-              <span className="text-gold">No code needed.</span>
+              {tr(locale, "Build your own agent.")}<br />
+              <span className="text-gold">{tr(locale, "No code needed.")}</span>
             </h2>
             <p className="mt-5 text-xl leading-8 text-[#C8D2E2]">
-              Four steps from sign-up to a live AI agent working for your business.
+              {tr(locale, "Four steps from sign-up to a live AI agent working for your business.")}
             </p>
           </div>
 
@@ -505,8 +513,8 @@ export default function AgentsPage() {
                     <pillar.Icon className="h-5 w-5 text-[#C8A96E]" />
                   </span>
 
-                  <h3 className="mt-4 text-base font-black text-[#F7F4EF]">{pillar.title}</h3>
-                  <p className="mx-auto mt-2 max-w-[22ch] text-sm leading-6 text-[#9AABC3]">{pillar.desc}</p>
+                  <h3 className="mt-4 text-base font-black text-[#F7F4EF]">{tr(locale, pillar.title)}</h3>
+                  <p className="mx-auto mt-2 max-w-[22ch] text-sm leading-6 text-[#9AABC3]">{tr(locale, pillar.desc)}</p>
                 </div>
               ))}
             </div>
@@ -523,14 +531,14 @@ export default function AgentsPage() {
                 <span className="mt-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#C8A96E]/10">
                   <pillar.Icon className="h-4 w-4 text-[#C8A96E]" />
                 </span>
-                <h3 className="mt-3 text-sm font-black text-[#F7F4EF]">{pillar.title}</h3>
-                <p className="mt-2 text-xs leading-5 text-[#9AABC3]">{pillar.desc}</p>
+                <h3 className="mt-3 text-sm font-black text-[#F7F4EF]">{tr(locale, pillar.title)}</h3>
+                <p className="mt-2 text-xs leading-5 text-[#9AABC3]">{tr(locale, pillar.desc)}</p>
               </div>
             ))}
           </div>
 
           <div className="scroll-reveal mt-12 text-center">
-            <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
+            <DemoCTA locale={locale} className="btn-primary">{tr(locale, "Book a Demo →")}</DemoCTA>
           </div>
         </div>
       </section>
@@ -545,8 +553,8 @@ export default function AgentsPage() {
               const delayClass = i % 2 === 1 ? "scroll-reveal scroll-reveal-d1" : "scroll-reveal";
               return (
                 <div key={label} className={`${delayClass} glass-card rounded-xl p-6 text-center`}>
-                  <p className="text-gold text-4xl font-black">{stat}</p>
-                  <p className="mt-2 text-sm font-semibold text-[#9AABC3]">{label}</p>
+                  <p className="text-gold text-4xl font-black">{tr(locale, stat)}</p>
+                  <p className="mt-2 text-sm font-semibold text-[#9AABC3]">{tr(locale, label)}</p>
                 </div>
               );
             })}
@@ -554,12 +562,12 @@ export default function AgentsPage() {
 
           <div className="scroll-reveal glass-card mt-8 rounded-2xl p-6 text-center sm:p-10">
             <h2 className="text-3xl font-black text-[#F7F4EF] sm:text-4xl">
-              Ready to see the agents<br />
-              <span className="text-gold">in action?</span>
+              {tr(locale, "Ready to see the agents")}<br />
+              <span className="text-gold">{tr(locale, "in action?")}</span>
             </h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <DemoCTA className="btn-primary">Book a Demo →</DemoCTA>
-              <a href={SIGNUP_URLS.conversational} className="btn-ghost">Start Free</a>
+              <DemoCTA locale={locale} className="btn-primary">{tr(locale, "Book a Demo →")}</DemoCTA>
+              <a href={SIGNUP_URLS.conversational} className="btn-ghost">{tr(locale, "Start Free")}</a>
             </div>
           </div>
         </div>

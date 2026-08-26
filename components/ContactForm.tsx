@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { getCopy } from "./content/site";
+import type { Locale } from "./i18n";
 import { submitLead } from "./submit-lead";
 
 /**
@@ -8,7 +10,8 @@ import { submitLead } from "./submit-lead";
  * inbox — replacing the old `mailto:` form action, which most browsers
  * silently drop.
  */
-export function ContactForm() {
+export function ContactForm({ locale }: { locale: Locale }) {
+  const t = getCopy(locale).contactForm;
   const [pending, setPending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -40,19 +43,19 @@ export function ContactForm() {
 
   if (sent) {
     return (
-      <div className="text-center sm:text-left">
+      <div className="text-center sm:text-start">
         <p className="text-lg font-black text-[#F7F4EF]">
-          Thanks — your message is on its way.
+          {t.thanksHeading}
         </p>
         <p className="mt-2 text-sm leading-6 text-[#9AABC3]">
-          Someone from the BlueScaler team will reply within one business day.
+          {t.thanksBody}
         </p>
         <button
           type="button"
           onClick={() => setSent(false)}
           className="mt-4 text-sm font-bold text-[#C8A96E] hover:underline"
         >
-          Send another message
+          {t.sendAnother}
         </button>
       </div>
     );
@@ -72,35 +75,35 @@ export function ContactForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
-          Name
+          {t.name}
           <input
             name="name"
             type="text"
             required
             autoComplete="name"
             className="form-input"
-            placeholder="Your name"
+            placeholder={t.namePlaceholder}
           />
         </label>
         <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
-          Work email
+          {t.email}
           <input
             name="email"
             type="email"
             required
             autoComplete="email"
             className="form-input"
-            placeholder="you@company.com"
+            placeholder={t.emailPlaceholder}
           />
         </label>
       </div>
       <label className="grid gap-2 text-sm font-semibold text-[#F7F4EF]">
-        Message
+        {t.message}
         <textarea
           name="message"
           rows={3}
           className="form-input resize-none"
-          placeholder="Tell us what you want to automate"
+          placeholder={t.messagePlaceholder}
         />
       </label>
 
@@ -112,7 +115,7 @@ export function ContactForm() {
 
       <div>
         <button type="submit" className="btn-primary" disabled={pending}>
-          {pending ? "Sending…" : "Send Message →"}
+          {pending ? t.sending : t.submit}
         </button>
       </div>
     </form>
