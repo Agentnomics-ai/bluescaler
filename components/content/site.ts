@@ -34,6 +34,7 @@ const en = {
     body: "Automate customer conversations, unlock business insights, and go live in days — not months. Built for SMBs across the Middle East.",
     primaryCta: "Book a Demo →",
     secondaryCta: "See it in action",
+    videoLabel: "A tour of the BlueScaler agent platform",
     stats: [
       { value: "60%", label: "More sales" },
       { value: "24/7", label: "Agent coverage" },
@@ -389,6 +390,7 @@ const ar: typeof en = {
     body: "أتمتة محادثات العملاء، واستخراج رؤى الأعمال، والانطلاق خلال أيام لا شهور. مصمَّم للشركات الصغيرة والمتوسطة في الشرق الأوسط.",
     primaryCta: "احجز عرضًا توضيحيًا ←",
     secondaryCta: "شاهده أثناء العمل",
+    videoLabel: "جولة في منصة وكلاء بلو سكيلر",
     stats: [
       { value: "٦٠٪", label: "زيادة في المبيعات" },
       { value: "٢٤/٧", label: "تغطية الوكلاء" },

@@ -10,25 +10,6 @@ export function Hero({ locale }: { locale: Locale }) {
       id="top"
       className="relative isolate overflow-hidden bg-[#060C18] px-5 pb-24 pt-20 sm:px-8 lg:pb-32 lg:pt-28"
     >
-      {/* Background video */}
-      <video
-        src="/videos/platform-hero.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover opacity-20 blur-[3px]"
-        aria-hidden
-      />
-
-      {/* Scrim — the hero video has its own typography in it; darken and
-          defocus it so it reads as ambient motion, not competing copy */}
-      <div className="pointer-events-none absolute inset-0 bg-[#060C18]/75" aria-hidden />
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#060C18] via-[#060C18]/80 to-[#060C18]/40 rtl:bg-gradient-to-l"
-        aria-hidden
-      />
-
       {/* Ambient glow orbs — breathe slowly */}
       <div
         className="glow-orb-gold orb-breathe pointer-events-none absolute -start-64 -top-64 h-[700px] w-[700px]"
@@ -53,9 +34,7 @@ export function Hero({ locale }: { locale: Locale }) {
           </span>
         </div>
 
-        {/* Headline + CTAs + stats. The right half is deliberately open —
-            the background video carries it. */}
-        <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <div>
             <h1 className="hero-in hero-in-d1 text-[54px] font-black leading-[1.02] tracking-tight text-[#F7F4EF] sm:text-7xl lg:text-[80px]">
               {t.titleLine1}<br />
@@ -83,6 +62,25 @@ export function Hero({ locale }: { locale: Locale }) {
                   <p className="mt-1 text-sm text-[#9AABC3]">{stat.label}</p>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Product tour. The clip is a light UI recording, so it sits in a
+              dark bezel rather than bleeding into the section behind it. */}
+          <div className="hero-card-in card-float glass-card gradient-border-gold rounded-2xl p-2.5">
+            <div className="overflow-hidden rounded-xl bg-[#030609]">
+              <div className="aspect-video">
+                <video
+                  src="/videos/platform-hero.mp4"
+                  poster="/videos/platform-hero-poster.jpg"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover"
+                  aria-label={t.videoLabel}
+                />
+              </div>
             </div>
           </div>
         </div>
