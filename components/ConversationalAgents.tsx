@@ -1,3 +1,4 @@
+import { AgentHubCard } from "./AgentHubCard";
 import { CONVERSATIONAL_VIDEOS, SIGNUP_URLS } from "./site-content";
 
 const STATS = [
@@ -19,7 +20,7 @@ export function ConversationalAgents() {
 
       <div className="relative mx-auto max-w-7xl">
         {/* Header row */}
-        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div className="scroll-reveal">
             <span className="brand-pill mb-6 inline-flex">
               Conversational Agents
@@ -34,18 +35,23 @@ export function ConversationalAgents() {
             </p>
           </div>
 
-          {/* Stat badges */}
-          <div className="grid grid-cols-3 gap-3">
-            {STATS.map(([stat, label], i) => (
-              <div
-                key={label}
-                className={`${i === 0 ? "scroll-reveal" : i === 1 ? "scroll-reveal scroll-reveal-d1" : "scroll-reveal scroll-reveal-d2"} glass-card rounded-xl p-5 text-center`}
-              >
-                <p className="text-gold text-2xl font-black">{stat}</p>
-                <p className="mt-1 text-sm text-[#9AABC3]">{label}</p>
-              </div>
-            ))}
+          {/* The agents themselves, moved up from the hero */}
+          <div className="scroll-reveal scroll-reveal-d1">
+            <AgentHubCard />
           </div>
+        </div>
+
+        {/* Stat badges */}
+        <div className="mt-10 grid grid-cols-3 gap-3">
+          {STATS.map(([stat, label], i) => (
+            <div
+              key={label}
+              className={`${i === 0 ? "scroll-reveal" : i === 1 ? "scroll-reveal scroll-reveal-d1" : "scroll-reveal scroll-reveal-d2"} glass-card rounded-xl p-5 text-center`}
+            >
+              <p className="text-gold text-2xl font-black">{stat}</p>
+              <p className="mt-1 text-sm text-[#9AABC3]">{label}</p>
+            </div>
+          ))}
         </div>
 
         {/* Video cards */}
@@ -57,6 +63,7 @@ export function ConversationalAgents() {
                   <video
                     src={video.videoSrc}
                     controls
+                    preload="metadata"
                     className="h-full w-full"
                   />
                 </div>

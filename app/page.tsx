@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <ConversationalAgents />
       <AnalyticalAgents />
+      <ConversationalAgents />
       <Industries />
       <TrustSection />
       <CTASection />

@@ -27,14 +27,19 @@ export const NAV_LINKS = [
 
 export const CONVERSATIONAL_VIDEOS = [
   {
-    title: "Customer Support Agent",
-    videoSrc: "/videos/AI%20Customer%20Support%20BOT.mp4",
+    title: "Aria — Customer Support Agent",
+    videoSrc: "/videos/aria-hero-audio.mp4",
   },
   {
     title: "Starchandco wins with Agentnomics",
     videoSrc: "/videos/starchandco%20wins%20with%20agentnomics.mp4",
   },
 ];
+
+export const ANALYTICAL_VIDEO = {
+  title: "Demand planning, answered in plain English",
+  videoSrc: "/videos/demand-planning-demo.mp4",
+};
 
 export const AGENTS_PAGE_VIDEOS = [
   {
@@ -67,6 +72,94 @@ export const CONVERSATIONAL_AGENT_CARDS = [
   },
 ];
 
+/**
+ * Analytical agents ship as system-specific families — each one reads the
+ * customer's own SAP or Salesforce data, so they're grouped by source system
+ * rather than listed flat.
+ */
+export const ANALYTICAL_AGENT_FAMILIES = [
+  {
+    system: "SAP Finance",
+    accent: "gold" as const,
+    blurb:
+      "AI agents for SAP finance teams. Analyze cash flow, break down spend by supplier and category, assess receivables risk, and optimize working capital — all from your SAP procurement and financial data.",
+    agents: [
+      {
+        name: "Cash Flow Intelligence",
+        description:
+          "Track purchase orders and sales orders to monitor cash outflows, inflows, and supplier and customer exposure.",
+      },
+      {
+        name: "Spend Analysis",
+        description:
+          "Break down organizational spend by supplier, material category, and purchasing group to identify savings.",
+      },
+      {
+        name: "Supplier Risk & Payables",
+        description:
+          "Analyze supplier dependency, payment aging, and procurement exceptions to manage AP risk.",
+      },
+      {
+        name: "Receivables & Customer Risk",
+        description:
+          "Analyze customer master data, purchasing exposure, and business partner relationships to flag credit risk.",
+      },
+      {
+        name: "Working Capital Optimization",
+        description:
+          "Assess AP exposure, inventory holding costs, and material positions to identify working capital to release.",
+      },
+      {
+        name: "AP Aging",
+        description:
+          "Watch overdue payables, surface aging buckets, and flag the invoices that need action first.",
+      },
+    ],
+  },
+  {
+    system: "Salesforce Customer Success",
+    accent: "teal" as const,
+    blurb:
+      "AI agents on top of your Sales Cloud and Service Cloud data. Surface at-risk pipeline, sharpen forecasts, and protect renewals — so reps, RevOps, and CS teams act on the right deal, account, and case first.",
+    agents: [
+      {
+        name: "Churn Risk Identifier",
+        description:
+          "Proactively identify at-risk accounts from support case volume, low engagement, and contract signals.",
+      },
+      {
+        name: "Case Resolution",
+        description:
+          "Analyze open support cases by priority, age, and product area to help support teams triage.",
+      },
+      {
+        name: "Renewal & Expansion",
+        description:
+          "Track contract renewals, upsell opportunities, and expansion ARR across the customer base.",
+      },
+      {
+        name: "Customer Health",
+        description:
+          "Build a health score across the customer base using engagement, support history, and product usage.",
+      },
+      {
+        name: "Volume & CSAT",
+        description:
+          "Analyze ticket volume, resolution times, and satisfaction trends to identify service gaps.",
+      },
+      {
+        name: "Account Intelligence",
+        description:
+          "Track contact-level engagement across calls, emails, and meetings to spot disengaged accounts.",
+      },
+    ],
+  },
+];
+
+/**
+ * The flat, system-agnostic list still used by the /agents page. The home page
+ * shows ANALYTICAL_AGENT_FAMILIES instead.
+ */
 export const ANALYTICAL_AGENTS = [
   {
     name: "Sales Analytics Agent",
