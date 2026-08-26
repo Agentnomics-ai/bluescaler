@@ -350,7 +350,9 @@ export default function AgentsPage() {
                   <div className="aspect-video">
                     <video
                       src={video.videoSrc}
+                      poster={video.poster}
                       controls
+                      preload="metadata"
                       className="h-full w-full"
                     />
                   </div>

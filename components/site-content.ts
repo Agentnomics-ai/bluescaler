@@ -25,14 +25,23 @@ export const NAV_LINKS = [
   { label: "Partners", href: "/partners" },
 ];
 
-export const CONVERSATIONAL_VIDEOS = [
+export type SiteVideo = {
+  title: string;
+  videoSrc: string;
+  /** Frame shown before playback — without one the player is a black box. */
+  poster?: string;
+};
+
+export const CONVERSATIONAL_VIDEOS: SiteVideo[] = [
   {
     title: "Aria — Customer Support Agent",
     videoSrc: "/videos/aria-hero-audio.mp4",
+    poster: "/videos/aria-hero-poster.jpg",
   },
   {
     title: "Starchandco wins with Agentnomics",
     videoSrc: "/videos/starchandco%20wins%20with%20agentnomics.mp4",
+    poster: "/videos/starchandco-poster.jpg",
   },
 ];
 
@@ -41,7 +50,7 @@ export const ANALYTICAL_VIDEO = {
   videoSrc: "/videos/demand-planning-demo.mp4",
 };
 
-export const AGENTS_PAGE_VIDEOS = [
+export const AGENTS_PAGE_VIDEOS: SiteVideo[] = [
   {
     title: "Aria customer support agent",
     videoSrc: "/videos/aria-hero-silent.webm",
