@@ -1,7 +1,10 @@
-import { BarChart3, MessageCircle, ShoppingBag } from "lucide-react";
+import { ArrowRight, MessageCircle, Sparkles, UtensilsCrossed } from "lucide-react";
 import { DemoCTA } from "./DemoCTA";
 
-type FeedIcon = typeof MessageCircle;
+type AgentIcon = typeof MessageCircle;
+
+/** Every agent starts on the same conversational-agent signup. */
+const SIGNUP_URL = "https://app.agentnomics.ai/signup/conversational-agent";
 
 export function Hero() {
   return (
@@ -101,7 +104,7 @@ export function Hero() {
                   BlueScaler Agent Hub
                 </p>
                 <p className="mt-0.5 text-xs text-[#9AABC3]">
-                  Live activity · GCC region
+                  Ready to deploy · GCC region
                 </p>
               </div>
               <span className="teal-pill">
@@ -113,50 +116,51 @@ export function Hero() {
               </span>
             </div>
 
-            {/* Live event feed */}
+            {/* The agents you can put to work today */}
             <div className="space-y-2.5">
               {(
                 [
                   {
-                    Icon: MessageCircle as FeedIcon,
-                    event: "Dubai restaurant booking",
-                    status: "Confirmed in 4s",
-                    statusClass: "text-[#C8A96E]",
-                    time: "Just now",
+                    Icon: MessageCircle as AgentIcon,
+                    name: "Aria",
+                    blurb:
+                      "Your conversational customer support agent — drives revenue and keeps business moving.",
                   },
                   {
-                    Icon: BarChart3 as FeedIcon,
-                    event: "Sales report request",
-                    status: "Chart generated",
-                    statusClass: "text-[#7CE2EF]",
-                    time: "18s ago",
+                    Icon: UtensilsCrossed as AgentIcon,
+                    name: "Restaurant Agent",
+                    blurb:
+                      "A friendly conversational agent that helps customers find favorite menu items or make a reservation.",
                   },
                   {
-                    Icon: ShoppingBag as FeedIcon,
-                    event: "Retail return request",
-                    status: "Flow completed",
-                    statusClass: "text-[#C8A96E]",
-                    time: "1m ago",
+                    Icon: Sparkles as AgentIcon,
+                    name: "Beauty Assistant",
+                    blurb:
+                      "Matches a customer's shade from a selfie, tracks orders, and books the salon.",
                   },
                 ]
-              ).map(({ Icon, event, status, statusClass, time }) => (
-                <div
-                  key={event}
-                  className="flex items-center gap-3 rounded-xl border border-white/6 bg-white/3 p-3"
+              ).map(({ Icon, name, blurb }) => (
+                <a
+                  key={name}
+                  href={SIGNUP_URL}
+                  className="group flex items-start gap-3 rounded-xl border border-white/6 bg-white/3 p-3 transition-colors hover:border-[#C8A96E]/40 hover:bg-white/6"
                 >
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5">
                     <Icon className="h-4 w-4 text-[#9AABC3]" />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-[#F7F4EF]">
-                      {event}
+                    <p className="text-sm font-semibold text-[#F7F4EF]">
+                      {name}
                     </p>
-                    <p className={`text-xs ${statusClass}`}>{status}</p>
+                    <p className="mt-0.5 text-xs leading-5 text-[#9AABC3]">
+                      {blurb}
+                    </p>
                   </div>
-                  <span className="shrink-0 text-xs text-[#6B7E9A]">
-                    {time}
-                  </span>
-                </div>
+                  <ArrowRight
+                    className="mt-0.5 h-4 w-4 shrink-0 text-[#6B7E9A] transition-transform group-hover:translate-x-0.5 group-hover:text-[#C8A96E]"
+                    aria-hidden
+                  />
+                </a>
               ))}
             </div>
 
