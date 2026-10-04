@@ -4,6 +4,7 @@ import { CTASection } from "@/components/CTASection";
 import { Hero } from "@/components/Hero";
 import { Industries } from "@/components/Industries";
 import { TrustSection } from "@/components/TrustSection";
+import { ZahraIntro } from "@/components/ZahraIntro";
 import { DEFAULT_LOCALE, isLocale } from "@/components/i18n";
 
 export default async function Home({
@@ -17,6 +18,7 @@ export default async function Home({
   return (
     <main>
       <Hero locale={locale} />
+      <ZahraIntro locale={locale} />
       <AnalyticalAgents locale={locale} />
       <ConversationalAgents locale={locale} />
       <Industries locale={locale} />
